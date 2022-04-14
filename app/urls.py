@@ -9,3 +9,4 @@ urlpatterns = [
     path('register/', views.register),
     path('password/', views.password),
 ]
+#
