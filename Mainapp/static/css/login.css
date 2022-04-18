@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'SFUIDisplay-Bold';
+    src: url('../fonts/SFUIDisplay-Bold.ttf') format('truetype');
+    unicode-range: U+0041-005A, U+0061-007A;
+  }
+
+.outer-container {
+    display: flex;
+    justify-content: center;
+}
+
+.outer-container .caption h2 {
+    text-align: center;
+}
+
+.outer-container h4 {
+    font-family: 'SFUIDisplay-Bold';
+    font-size: 20px;
+    text-align: left;
+    /* margin-bottom: 5px; */
+}
+
+.form-group {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-group input {
+    background-color: #F4F4F4;
+    width: 500px;
+    height: 65px;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 0px 20px;
+    border: 1px solid lightgray;
+    outline: none;
+}
+
+.form-group i {
+    position: absolute;
+    left: 92%;
+    top: 47%;
+    color: #B5B5B5;
+    cursor: pointer;
+}
+
+.outer-container .caption img {
+    margin-top: 35px;
+    width: 350px;
+    height: 60px;
+}
+
+.outer-container .caption p {
+    margin: 0 auto;
+    margin-top: 45px;
+    text-align: center;
+}
+
+.outer-container .caption .main-button-red {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.outer-container .caption .login-btn {
+    font-size: 15px;
+    color: #fff;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
+    box-shadow: none;
+    outline: 0;
+    border: 0;
+}

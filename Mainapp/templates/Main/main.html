@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>Education Meeting HTML5 Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+<!--
+
+TemplateMo 569 Edu Meeting
+
+https://templatemo.com/tm-569-edu-meeting
+
+-->
+  </head>
+
+<body>
+
+  <!-- ***** Main Banner Area Start ***** -->
+  <section class="section main-banner" id="top" data-section="section1">
+      <img src="{% static 'images/paper.jpg' %}" id="bg-video">
+
+      <div class="video-overlay header-text">
+        <div class="container">
+          <div class="caption">
+            <h2>Service Name</h2>
+            <p>Service는 복잡한 문서를 간단하게 요약해주는 서비스입니다. <br>업로드 한 번으로 시간을 절약하세요.<br>어쩌구 저쩌구...</p>
+            <div class="main-button-red">
+                  <a href="{% url 'Mainapp:login' %}">Join</a>
+            </div>
+          </div>
+        </div>
+          
+      </div>
+    </section>
+
+    <section class="services">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="owl-service-item owl-carousel">
+            
+              <div class="item">
+                <a href="{% url 'Summaryapp:summary' %}">
+                  <div class="icon">
+                    <img src="{% static 'images/summary_icon.png' %}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <h4>Summary</h4>
+                    <p>문서 요약</p>
+                  </div>
+                </a>
+              </div>
+              
+              <div class="item">
+                <a href="{% url 'Searchapp:category' %}">
+                  <div class="icon">
+                    <img src="{% static 'images/search_icon.png' %}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <h4>Search</h4>
+                    <p>검색 및 추천</p>
+                  </div>
+                </a>
+              </div>
+              
+              <div class="item">
+                <a href="{% url 'Searchapp:category' %}">
+                  <div class="icon">
+                    <img src="{% static 'images/community_icon.png' %}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <h4>Community</h4>
+                    <p>자유 게시판</p>
+                  </div>
+                </a>
+              </div>
+              
+              <div class="item">
+                <a href="{% url 'Searchapp:category' %}">
+                  <div class="icon">
+                    <img src="{% static 'images/search_icon.png' %}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <h4>Online Meeting</h4>
+                    <p>Suspendisse tempor mauris a sem.</p>
+                  </div>
+                </a>
+              </div>
+              
+              <div class="item">
+                <a href="{% url 'Searchapp:category' %}">
+                  <div class="icon">
+                    <img src="{% static 'images/search_icon.png' %}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <h4>Best Networking</h4>
+                    <p>Suspendisse tempor mauris a sem.</p>
+                  </div>
+                </a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>    
+ 
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'js/isotope.min.js' %}"></script>
+    <script src="{% static 'js/owl-carousel.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+
+    <script>
+      window.onload=function() {
+        new scrollReveal();
+      }
+    </script>
+</body>
+
+<!-- </body> -->
+</html>
