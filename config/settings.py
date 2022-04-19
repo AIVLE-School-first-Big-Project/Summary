@@ -80,11 +80,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
 
-    }
+    # }
+
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'summary_web',
+        'USER': 'admin',
+        'PASSWORD': 'aivle202101',
+        'HOST': 'summarydb.czt4jicycfmy.us-east-1.rds.amazonaws.com',
+        'PORT': 3306,
+        'OPTIONS': {
+            'sql_mode': 'traditional' ,
+        },
+    },
 }
 
 
@@ -122,7 +134,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILE_DIRS = [os.path.join(BASE_DIR, 'static')]
 
