@@ -40,8 +40,13 @@ https://templatemo.com/tm-569-edu-meeting
           <div class="caption">
             <h2>Service Name</h2>
             <p>Service는 복잡한 문서를 간단하게 요약해주는 서비스입니다. <br>업로드 한 번으로 시간을 절약하세요.<br>어쩌구 저쩌구...</p>
+
             <div class="main-button-red">
-                  <a href="{% url 'Mainapp:login' %}">Join</a>
+              {% if user.is_authenticated %} 
+              <a href="{% url 'Mainapp:mypage' %}">MyPage</a>
+              {%else%}
+              <a href="{% url 'Mainapp:login' %}">JOIN</a>
+              {% endif %}
             </div>
           </div>
         </div>
