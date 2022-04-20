@@ -16,7 +16,7 @@ def main(request):
 def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
-        print('d')
+        # print('d')
         if form.is_valid():
             u = form.save(commit=False)
             # id
@@ -28,8 +28,8 @@ def signup(request):
             
             u.save()
             user = authenticate(username=username, password=raw_password, first_name=nickname)
-            login(request, user)
-            return redirect('Mainapp:main')
+            # login(request, user)
+            return redirect('Mainapp:login')
     else:
         form = UserForm()
     return render(request, 'Main/signup.html', {'form': form})

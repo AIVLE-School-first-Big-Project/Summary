@@ -43,7 +43,9 @@ https://templatemo.com/tm-569-edu-meeting
 
             <div class="main-button-red">
               {% if user.is_authenticated %} 
-              <a href="{% url 'Mainapp:mypage' %}">MyPage</a>
+              <!-- <a href="{% url 'Mainapp:logout' %}">Logout</a> -->
+              <!-- <p>안녕하세요!</p> -->
+              <a href="{% url 'Mainapp:mypage' %}">MYPAGE</a>
               {%else%}
               <a href="{% url 'Mainapp:login' %}">JOIN</a>
               {% endif %}

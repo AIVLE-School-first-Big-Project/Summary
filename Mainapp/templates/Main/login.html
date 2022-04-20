@@ -46,12 +46,12 @@ https://templatemo.com/tm-569-edu-meeting
             {% include "form_errors.html" %}
             <!-- 아이디 -->
             <div class="form-group">
-              <input type="text" name="username" id="username" placeholder="ID" value="{{ form.username.value | default_if_none:'' }}">
+              <input type="text" name="username" id="username" placeholder="id" value="{{ form.username.value | default_if_none:'' }}">
             </div>
             <!-- 비밀번호 -->
             <div class="form-group">
               <input type="password" name="password" id="password" placeholder="Password" value="{{ form.password.value | default_if_none:'' }}">
-              <i class="fa fa-eye fa-lg" id="eyes"></i>
+              <i class="fa fa-eye fa-lg" name="eyes" id="eyes"></i>
             </div>
             
             <div class="main-button-red" style="margin-top: 30px;">
@@ -78,32 +78,24 @@ https://templatemo.com/tm-569-edu-meeting
     
   </section>
 
-    <!-- Scripts -->
-    <!-- <script>
-      window.onload=function() {
-        new scrollReveal();
-      }
-    </script> -->
-    <script>
-      // 비밀번호 보이게
-      //$(document).ready(function() {
-      $(function() {
-        // 눈표시 클릭 시 패스워드 보이기
-        //$('#eyes').on("click", function(){
-        $(document).on("click", "#eyes", function(){
-          console.log('클릭');
-          alert('ok');
-          $('input[name=password]').toggleClass('active');
-      
-          if($('input[name=password]').hasClass('active')){
-            $(this).attr('class',"fa fa-eye-slash fa-lg").prev('input').attr('type',"text");
-          }
-          else{
-            $(this).attr('class',"fa fa-eye fa-lg").prev('input').attr('type','password');
-          }
-        });
+  <script>
+    // 비밀번호 보이게
+    $(document).ready(function() {
+      //alert('실행');
+      // 눈표시 클릭 시 패스워드 보이기
+      //$(document).on('click', "i[name='eyes']", function(){
+      $(document).on("click", ".form-group i", function(){
+        $('input[name=password]').toggleClass('active');
+        if($('input[name=password]').hasClass('active')){
+          $(this).attr('class',"fa fa-eye-slash fa-lg")
+          .prev('input').attr('type',"text");
+        }else{
+          $(this).attr('class',"fa fa-eye fa-lg")
+          .prev('input').attr('type','password');
+        }
       });
-    </script>
+    });
+  </script>
     
 </body>
 </html>

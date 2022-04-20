@@ -118,7 +118,8 @@
                                 <h3 style="font-weight: 600;">내 정보</h3>
                             </div>
                             <img src="{% static 'images/pencil.png' %}">
-                            <h5 style="margin-top: 28px;">닉네임</h5>
+                            <h5 style="margin-top: 28px;">{{ user.username }}</h5>
+                            <h5 style="margin-top: 10px;">{{ user.first_name }}</h5>
                             <!-- <h5>이메일</h5> -->
                             <div class="main-button-black">
                                 <a href="{% url 'Mainapp:logout' %}">로그아웃</a>

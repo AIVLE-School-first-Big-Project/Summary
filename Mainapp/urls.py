@@ -8,9 +8,6 @@ app_name = 'Mainapp'
 
 urlpatterns = [
     path('', views.main, name='main'),
-    # path('search/', views.search_category, name='search_category'),
-    # path('login/', views.login, name='login'),
-    # path('signup/', views.signup, name='signup'),
     path('mypage/', views.mypage, name='mypage'),
     
     path('login/',
@@ -21,9 +18,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
         
     path('signup/', views.signup, name='signup'),
-
-    # path('profile_update/', views.profile_update, name='profile_update'),
-
-    
 ]  
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
