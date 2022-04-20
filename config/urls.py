@@ -25,7 +25,7 @@ urlpatterns = [
     path('search/', include('Searchapp.urls')),
     path('summary/', include('Summaryapp.urls')),
     # path('', HomeView.as_view(), name='home'),
-    path('board/',include('Board.urls'))
+   
 
 
   

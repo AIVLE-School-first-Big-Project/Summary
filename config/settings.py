@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'Searchapp',
     'Mainapp',
     'widget_tweaks',
-    'Board',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
