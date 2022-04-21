@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    {% block title %}home.html{% endblock %}
+    {% block extra-style %}
+    <style type="text/css">
+    .home-image {
+        backgroud-image: url("{% static 'img/lion.jpg' %}");
+        backgroud-repeat: no-repeat;
+        backgroud-position: center;
+        backgroud-size: 100%%;
+        height: 500px;
+        border-top: 10px solid #ccc;
+        border-bottom: 10px solid #ccc;
+        padding: 20px 0 0 20px;
+    }
+    .title {
+        color: #c80;
+        font-weight: bold;
+    }
+    .powered{
+        position: relative;
+        top: 77%;
+        color: #cc0;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="home-image">
+    <h2 class="title">Django - Python Web Programing</h2>
+    <h4 class="powered"><i class="fas fa-arrow-circle-right"></i> powered by django and bootstrap.</h4>
+</div>
+    {% comment %} <title>Django Web Programing</title> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> {% endcomment %}
+</head>
+{% endblock %}
+<body style="padding-top:90px;">
+    
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    {% comment %} <div class="container-fluid"> {% endcomment %}
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+              Dropdown
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+  </nav>
+{% comment %}   
+  <div class="container bg-warning">
+      {% block content %}
+      <h4>This is CONTENT area.</h4>
+      {% endblock %}
+  </div> {% endcomment %}
+  {% block footer %}
+  <footer class="fixed-bottom bg-info">
+      <h4>This is FOOTER area.</h4>
+  </footer>
+  {% endblock %}
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/lib/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
