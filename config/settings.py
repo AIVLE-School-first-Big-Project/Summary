@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'ckeditor',
     'ckeditor_uploader',
+    'Board',
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,7 @@ X_FRAME_OPTIONS='SAMEORIGIN'
 
 CKEDITOR_UPLOAD_PATH='uploads/'
 # CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+SUMMERNOTE_CONFIG = {
+    'attachment_filesize_limit': 5 * 1024 * 1024
+}

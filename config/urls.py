@@ -17,7 +17,8 @@ Including another URLconf
 from django.urls import path, include
 # from mysite.views import HomeView
 # from mysite.views import UserCreateView, UserCreateDoneTV
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -25,8 +26,8 @@ urlpatterns = [
     path('search/', include('Searchapp.urls')),
     path('summary/', include('Summaryapp.urls')),
     # path('', HomeView.as_view(), name='home'),
+    path('summernote/',include('django_summernote.urls')),
+    path('Board/',include('Board.urls')),
    
-
-
-  
 ]
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
