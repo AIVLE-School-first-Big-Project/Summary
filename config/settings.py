@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 
 import pymysql  
 pymysql.install_as_MySQLdb()
@@ -136,8 +137,8 @@ USE_I18N = True
 
 USE_TZ = False
 
-LOGIN_REDIRECT_URL = ''
-LOGOUT_REDIRECT_URL = '/login'
+# LOGIN_REDIRECT_URL = ''
+# LOGOUT_REDIRECT_URL = '/login'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -155,9 +156,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('Mainapp:main')
+LOGOUT_REDIRECT_URL = reverse_lazy('Mainapp:login')
 
 X_FRAME_OPTIONS='SAMEORIGIN'
 
 CKEDITOR_UPLOAD_PATH='uploads/'
 # CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+)
