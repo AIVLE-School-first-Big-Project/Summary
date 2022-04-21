@@ -11728,6 +11728,13 @@ body {
 mypage
 ---------------------------------------------
 */
+.mypage_icon {
+  width: 25px;
+  height: 25px;
+  float: right;
+  margin-right: 20px;
+}
+
 .profile_container {
   width: 700px;
   height: 240px;
