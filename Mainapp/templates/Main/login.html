@@ -52,7 +52,6 @@ https://templatemo.com/tm-569-edu-meeting
             <div class="form-group">
               <input type="password" name="password" id="password" placeholder="Password" value="{{ form.password.value | default_if_none:'' }}">
               <i class="fa fa-eye fa-lg" name="eyes" id="eyes"></i>
-              {% comment %} <input type="button" id="showPassword" value="show" class="button"/> {% endcomment %}
             </div>
             
             <div class="main-button-red" style="margin-top: 30px;">
@@ -81,7 +80,7 @@ https://templatemo.com/tm-569-edu-meeting
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script>
     // 비밀번호 보이게
-   $(document).ready(function() {
+    $(function(){
       // 눈표시 클릭 시 패스워드 보이기
       $(document).on("click", ".form-group i", function(){
         $('input[name=password]').toggleClass('active');

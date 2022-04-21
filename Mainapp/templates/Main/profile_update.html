@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/main.css' %}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        {% include 'header.html' %}              
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4 mt-5">
+                        <div class="profile_container">
+                            <div class="profile_update">
+                                <h3>닉네임 수정</h3>
+                            </div>
+                            <form action="{% url 'Mainapp:profile_update' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% include "form_errors.html" %}
+                                <input type="text" name="first_name" id="first_name" placeholder="{{ currentname }}"
+                                    class="nickname_input" value="{{ form.first_name.value | default_if_none:'' }}">
+                                <div class="main-button-black mt-3">
+                                    <input type="submit" value="수정하기" style="margin-left:10px">
+                                    <a href="{% url 'Mainapp:mypage' %}">취소</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

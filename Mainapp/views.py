@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import UserForm
+from .forms import UserForm, CustomUserChangeForm
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -36,3 +36,33 @@ def signup(request):
 
 def mypage(request):
     return render(request, 'Main/mypage.html', {})
+
+def profile_update(request):
+    username = request.user.first_name
+    
+    if request.method == 'GET':
+        context = {'currentname': username}
+        return render(request, 'Main/profile_update.html', context)
+    elif request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            u = form.save(commit=False)
+            current = User.objects.get(id=request.user.id)
+            
+            user = request.POST.get('first_name')
+            if user:
+                u.first_name = user
+            else:
+                u.first_name = current.first_name
+            
+            u.save()
+            
+            return redirect('Mainapp:mypage')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'Main/profile_update.html')
