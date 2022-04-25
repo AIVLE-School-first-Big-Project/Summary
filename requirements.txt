@@ -1,0 +1,3 @@
+pip install speechrecognition
+conda install pyaudio --yes
+conda install portaudio --yes

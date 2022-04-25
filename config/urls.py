@@ -20,6 +20,7 @@ from django.urls import path, include
 # from mysite.views import UserCreateView, UserCreateDoneTV
 from django.conf import settings
 from django.conf.urls.static import static
+from meeting.views import audio
 
 
 urlpatterns = [
@@ -32,6 +33,10 @@ urlpatterns = [
     # path('', HomeView.as_view(), name='home'),
     path('summernote/',include('django_summernote.urls')),
     path('Board/',include('Board.urls')),
+    path('meeting/',include('meeting.urls', namespace='meeting')),
+    path(r'', audio),
+
+
    
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
