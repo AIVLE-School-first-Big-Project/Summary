@@ -64,12 +64,13 @@ def profile_update(request):
     return render(request, 'Main/profile_update.html')
 
 def my_category(request, table):
-    # user 이메일
-    user = request.user.first_name
+    # user 고유 id
+    # user = request.user.username
+    user = request.user.id
     
     # 작성한 글
     if table == 'article':
-        my_list = Board.objects.filter(writer=user).order_by('-b_date')
+        my_list = Board.objects.filter(user_id=user).order_by('-b_date')
     
     paginator = Paginator(my_list, 9)
     page = request.GET.get('page')
