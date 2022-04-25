@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'Board',
+    'meeting.apps.MeetingConfig',
 ]
 
 MIDDLEWARE = [
