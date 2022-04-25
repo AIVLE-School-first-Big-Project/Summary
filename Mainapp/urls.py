@@ -16,6 +16,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     
     path('mypage/', views.mypage, name='mypage'),
-    path('mypage/profile_update', views.profile_update, name='profile_update'),        
+    path('mypage/profile_update', views.profile_update, name='profile_update'),
+    path('mypage/<str:table>', views.my_category, name='my_category'),
 ]  
 # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
