@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django_summernote',
     'ckeditor',
     'ckeditor_uploader',
+    'Board',
+    'meeting.apps.MeetingConfig',
 ]
 
 MIDDLEWARE = [
@@ -171,3 +173,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.request",
 )
+
+SUMMERNOTE_CONFIG = {
+    'attachment_filesize_limit': 5 * 1024 * 1024
+}

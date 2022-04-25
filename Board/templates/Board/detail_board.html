@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>Education Meeting HTML5 Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <script>
+        function modify_button() {
+            if (confirm("수정하시겠습니까?") == true) {
+             
+              
+              location.href=link;
+            }
+            else {
+              return;
+            }
+          }
+        </script>
+    
+<!--
+
+TemplateMo 569 Edu Meeting
+
+https://templatemo.com/tm-569-edu-meeting
+
+-->
+
+  </head>
+
+<body>
+
+  <!-- ***** Main Banner Area Start ***** -->
+  <section class="section main-banner" id="top" data-section="section1">
+
+      <img src="{% static 'images/paper.jpg' %}" id="bg-video">
+
+      <div class="video-overlay header-text">
+        <div class="container">
+            <div class="row">
+              <!-- 본문 -->
+                <div class="container" , style="border-radius: 30px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+                  <div class="mt-3"></div>
+                  <div class="container">
+  
+                  <div class="meta" style="color:#78ECD9;">
+                    #{{ board_detail.b_no }}
+                    <h3>{{ board_detail.b_title }}</h3>
+                  </div>
+  
+                  <hr>
+  
+                  <div style="margin:5px; height:45px;">
+                    <ul class="context_ul">
+                      <li class="context_li" style="margin-top: 0px;">
+                        <p class="lead">{{board_detail.writer}}</p>
+                      </li>
+                      <li class="context_li" style="margin-left: 10px;">
+                        <text class="meta" style="font-size:85%;">{{board_detail.b_date}}</text>
+                      </li>
+                      <li class="context_li" style="margin-top: 3px; margin-left: 10px;">
+                        <img src="{%static 'images/view_icon.png' %}" height="20" width="20">
+                      </li>
+                      <li class="context_li" style="margin-left: 5px;">
+                        <text class="meta" style="font-size:95%;">
+                          {{ board_detail.view }}
+                        </text>
+                      </li>
+  
+                      {% if user.first_name ==  board_detail.writer %}
+                        <li class="context_li" style="margin-left: 20px;">
+                          <a onclick="modify_button()" class="cursor_pointer">
+                            수정
+                          </a>
+                        </li>
+                        {% comment %} <li class="context_li" style="margin-left: 20px;">
+                          <a onclick="delete_button()" class="cursor_pointer">
+                            삭제
+                          </a>
+                        </li> {% endcomment %}
+                      {%endif%}
+  
+  
+                    </ul>
+                  </div>
+  
+                  
+                  
+  
+                  <div class="mt-3"></div>
+  
+                  <!-- 글 -->
+                  <p style="font-size:120%;">{{ board_detail.b_contents|safe }}</p>
+                  {% comment %} <div class="category_container" style="margin-left:0%; margin-top:10px;">
+                    <div>#{{board_detail.category}}</div>
+                  </div> {% endcomment %}
+  
+                
+                    {% comment %} <div class="pt-4">
+                      <p>
+                      </text><input type="button" id='heart-button' onclick="heart_button()"><text style="margin:5px;">{{ board_detail.like }}</text>
+                        <input type="button" id='rp-button'><text style="margin:5px;">{{comment_cnt}}</text>
+                        {% if user.is_authenticated %}
+                        <text style="margin:5px; float:right;" >
+                          6
+                        </text><input type="button" id='scrap-button' style="float:right;" onclick="scrap_button()">
+                        {%endif%}
+                      </p>
+                    </div> {% endcomment %}
+              
+  
+                  
+  
+                  <div class="mt-5"></div>
+                </div>
+                </div>
+              <div class="comment_container">
+                <div class="pt-5" style="width=100%;">
+                
+                    <Button type="button" class="btn btn-primary px-4" onclick="location.href='{% url 'Board:board_write' %}'" style="width:80px;"> <span> 글 목록 </span></Button>
+                  
+                </div>
+                
+  
+              <!-- 댓글 -->
+              {% comment %} <div class="pt-5">
+        
+                  <h3 class="mb-5">댓글 <text style="font-size:90%; color:#78ECD9;">{{comment_cnt}}</text> </h3>
+                  <ul class="comment-list">
+                   
+              
+                    {% for item in comment_list %}
+  
+                      {% if request.session.update_c_no ==  item.c_no %}
+                      <li class="comment">
+                     
+                        <div class="comment-body">
+                        <h3>{{item.writer}}</h3>
+                        <form action="{% url 'MakeBoardapp:comment_update' item.c_no%}" class="" method='post'>
+                          {% csrf_token %}
+                          <div class="form-group">
+                            <input type="hidden" id="gameToken" name="tb_no" value="{{ board_detail.tb_no }}">
+                            <textarea name="contents" id="message"  cols="30" rows="5" 
+                              class="form-control">{{item.contents}}</textarea>
+                          </div>
+                          <div class="atagg">
+                            <input type="submit" value="수정" class="btn btn-primary btn-md text-white">
+                          </div>
+                        </form>
+                      </div>
+                    </li>
+                    
+                      {% else%}
+  
+                        <li class="comment">
+                          <hr>
+                          <div class="comment-body">
+                            <h3>{{item.writer}}</h3>
+                            <div class="meta">
+                                {{item.c_date}}
+                              </div>
+                            <p style="font-size:110%;">{{item.contents}}</p>
+  
+                            {% if user.first_name ==  item.writer %}
+                            <div class="atagg">
+                                <a onclick="location.href='{% url 'MakeBoardapp:comment_updateurl' board_detail.tb_no item.c_no %}'">  수정 </a>
+                                <a onclick="location.href='{% url 'MakeBoardapp:comment_delete' board_detail.tb_no item.c_no %}'"> 삭제 </a><br>
+                            </div>    
+                            {% endif%}
+  
+                          </div>
+                        </li>
+  
+                      {% endif%}
+  
+                    {% endfor %}
+  
+                  </ul>
+                  <!-- END comment-list -->
+                  <div class="comment-form-wrap pt-5">
+                    
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'MakeBoardapp:total_comment' %}" class="" method='post'>
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <hr>
+                        <input type="hidden" id="gameToken" name="tb_no" value="{{ board_detail.tb_no }}">
+      
+                        <label for="message" style="font-size: 125%" class="mb-3">댓글</label>
+                        <textarea name="contents" id="message" placeholder="내용을 입력하세요." cols="30" rows="5" 
+                          class="form-control"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <input type="submit" value="등록" class="btn btn-primary btn-md text-white">
+                      </div>
+  
+                      </form>
+                    {% else %}
+                    
+                      <div class="form-group">
+                        <hr>
+      
+                        <label for="message" style="font-size: 125%" class="mb-3">댓글</label>
+                        <div  cols="50" rows="50" class="form-control">
+                          
+                              <a href="{% url 'Mainapp:login' %}">로그인을 해주세요.</a>
+                        </div>
+                        
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% comment %} </div> {% endcomment %}
+                </div> 
+            </div>
+          </div>
+      </div>
+
+      <!-- ***** Features Small Start ***** -->
+      {% comment %} <section class="section home-feature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+                          <a href="{% url 'Mainapp:main' %}">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i><img src="{% static 'images/summary_icon.png' %}" alt=""></i>
+                                </div>
+                                <h5 class="features-title">Paper</h5>
+                                <p>Customize anything in this template to fit your website needs</p>
+                            </div>
+                          </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+                          <a href="{% url 'Mainapp:main' %}">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i><img src="{% static 'images/summary_icon.png' %}" alt=""></i>
+                                </div>
+                                <h5 class="features-title">Book</h5>
+                                <p>Contact us immediately if you have a question in mind</p>
+                              </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section> {% endcomment %}
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+    <script>
+      window.onload=function() {
+        new scrollReveal();
+      }
+    </script>
+</body>
+
+</html>

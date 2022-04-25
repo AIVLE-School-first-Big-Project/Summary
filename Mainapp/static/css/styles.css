@@ -594,6 +594,29 @@ progress {
   margin-right: 0.5rem;
 }
 
+.board_container{
+  border-radius: 2rem;
+  box-shadow: 0 10px 20px 0 rgb(0 0 0 / 10%);
+}
+
+.post-entry-1 h2 {
+  font-size: 20px; }
+  .post-entry-1 h2 a {
+    color: #000; }
+
+.post-entry-1 .thumbnail-link {
+  display: block; }
+
+
+.context_ul{
+    list-style-type: none;
+  }
+  
+.context_li{
+    float: left;
+    margin-top: 5px;
+  }
+
 .initialism {
   font-size: 0.875em;
   text-transform: uppercase;
@@ -2587,6 +2610,7 @@ textarea.form-control-lg {
   opacity: 0.65;
 }
 
+
 .form-range {
   width: 100%;
   height: 1.5rem;
@@ -3065,8 +3089,8 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
 }
 .btn-primary:hover {
   color: #fff;

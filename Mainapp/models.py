@@ -8,6 +8,7 @@ class Board(models.Model):
     b_title=models.CharField(max_length=100,null=False)
     view=models.IntegerField(null=False,default=0)
     writer=models.CharField(max_length=50,null=False)
+    comment_cnt=models.IntegerField(null=False,default=0)
 
     class Meta:
         db_table='Board'
