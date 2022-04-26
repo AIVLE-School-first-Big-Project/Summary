@@ -1,3 +1,6 @@
 pip install speechrecognition
 conda install pyaudio --yes
 conda install portaudio --yes
+pip install requests
+pip install bs4
+pip install selenium
