@@ -9,8 +9,8 @@ from selenium import webdriver
 def category(request):
     return render(request, 'Search/search_category.html', {})
 
-def index(request):
-    return render(request, 'Search/index.html')
+def booksearch(request):
+    return render(request, 'Search/booksearch.html')
 
 def book(request):
     search = request.POST.get('search')
