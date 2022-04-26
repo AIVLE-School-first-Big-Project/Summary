@@ -11,5 +11,6 @@ urlpatterns = [
     path('category/', views.category, name='category'),
     # path('login/', views.login, name='login'),
     # path('signup/', views.signup, name='signup'),
-    
+    path('booksearch/', views.index, name='booksearch'),
+    path('book/', views.book, name='book'),    
 ]  
