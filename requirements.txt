@@ -4,3 +4,6 @@ conda install portaudio --yes
 pip install requests
 pip install bs4
 pip install selenium
+pip install konlpy
+pip install torch
+pip install transformers
