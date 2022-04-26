@@ -188,7 +188,7 @@
                           <ul class="my_comment_ul">
                            
                             <li class="context_li" style="margin-top: 0px;">
-                              <a class="float-left btn-rep">댓글!</a>
+                              <a class="float-left btn-rep">댓글</a>
                               <text style="margin:5px;">{{board_detail.comment_cnt}}</text>
                             </li>
                            
@@ -196,6 +196,108 @@
                         </p>
                       </div>
                     <div class="mt-5"></div>
+                  </div>
+                  </div>
+
+                  <div class="comment_container">
+                    <div class="pt-5" style="width=100%;">
+                     
+                        <Button type="button" class="btn btn-primary px-4" onclick="location.href='{% url 'Board:board_list' %}'" style="width:80px;"> <span> 글 목록 </span></Button>
+                
+                      
+                    </div>
+                    
+      
+                  <!-- 댓글 -->
+                  <div class="pt-5">
+            
+                      <h3 class="mb-5">댓글 <text style="font-size:90%; color:#78ECD9;">{{comment_cnt}}</text> </h3>
+                      <ul class="comment-list">
+                       
+                  
+                        {% for item in comment_list %}
+      
+                        {% if request.session.update_r_no ==  item.r_no %}
+                          <li class="comment">
+                         
+                            <div class="comment-body">
+                            <h3>{{item.writer}}</h3>
+                            <form action="{% url 'Board:comment_update' item.r_no%}" class="" method='post'>
+                              {% csrf_token %}
+                              <div class="form-group">
+                                <input type="hidden" id="gameToken" name="b_no" value="{{ board_detail.b_no }}">
+                                <textarea name="r_contents" id="message"  cols="30" rows="5" 
+                                  class="form-control">{{item.r_contents}}</textarea>
+                              </div>
+                              <div class="atagg">
+                                <input type="submit" value="수정" class="btn btn-primary btn-md text-white">
+                              </div>
+                            </form>
+                          </div>
+                        </li>
+                        
+                        {% else%}
+      
+                            <li class="comment">
+                              <hr>
+                              <div class="comment-body">
+                                <h3>{{item.writer}}</h3>
+                                <div class="meta">
+                                    {{item.r_date}}
+                                  </div>
+                                <p style="font-size:110%;">{{item.r_contents}}</p>
+      
+                                {% if user.first_name ==  item.writer %}
+                                <div class="atagg">
+                                    <a onclick="location.href='{% url 'Board:comment_updateurl' board_detail.b_no item.r_no %}'">  수정 </a>
+                                    <a onclick="location.href='{% url 'Board:comment_delete' board_detail.b_no item.r_no %}'"> 삭제 </a><br>
+                                </div>    
+                                {% endif%}
+      
+                              </div>
+                            </li>
+      
+                          {% endif%}
+      
+                        {% endfor %}
+      
+                      </ul>
+                      <!-- END comment-list -->
+                      <div class="comment-form-wrap pt-5">
+                        
+                        {% if user.is_authenticated %}
+                        <form action="{% url 'Board:comment' %}" class="" method='post'>
+                          {% csrf_token %}
+                          <div class="form-group">
+                            <hr>
+                            <input type="hidden" id="gameToken" name="b_no" value="{{ board_detail.b_no }}">
+          
+                            <label for="message" style="font-size: 125%" class="mb-3">댓글</label>
+                            <textarea name="r_contents" id="message" placeholder="내용을 입력하세요." cols="30" rows="5" 
+                              class="form-control"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <input type="submit" value="등록" class="btn btn-primary btn-md text-white">
+                          </div>
+      
+                          </form>
+                        {% else %}
+                        
+                          <div class="form-group">
+                            <hr>
+          
+                            <label for="message" style="font-size: 125%" class="mb-3">댓글</label>
+                            <div  cols="50" rows="50" class="form-control">
+                              
+                                  <a href="{% url 'Mainapp:login' %}">로그인을 해주세요.</a>
+                            </div>
+                            
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    {% comment %} </div> {% endcomment %}
                   </div>
 
               </main>

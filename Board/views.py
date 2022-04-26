@@ -91,13 +91,12 @@ def comment(request):
     if request.method=='POST':
         r_contents=request.POST.get('r_contents')
         b_no=request.POST.get('b_no')
+        print(b_no,r_contents)
         if r_contents:
             try:
                 print(r_contents)
                 writer=request.user.first_name
-               
-
-
+                
                 review=Review.objects.create(b_no=b_no,r_contents=r_contents,writer=writer)
                 review.save()
 
@@ -126,4 +125,28 @@ def comment_delete(request,b_no,r_no):
         return redirect('Board:detail_board',b_no)
 
 def comment_updateurl(request,b_no,r_no):
-    request.session['']
+    request.session['update_r_no']= r_no
+    print(request.session['update_r_no'])
+
+    return redirect('Board:detail_board',b_no)
+
+def comment_update(request,r_no):
+    if request.method == 'POST':
+        comment=Review.objects.get(r_no=r_no)
+
+        r_contents= request.POST.get('r_contents')
+        b_no=request.POST.get('b_no')
+        r_date=datetime.now()
+
+        if r_contents:
+            try:
+                comment.r_contents=r_contents
+                comment.r_date=r_date
+                comment.save()
+
+                del request.session['update_r_no']
+                return redirect('Board:detail_board',b_no)
+            except:
+                return redirect('Board:detail_board',b_no)
+        else:
+            return redirect('Board:detail_board',b_no)

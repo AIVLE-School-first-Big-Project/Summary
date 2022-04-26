@@ -9,6 +9,7 @@ class Board(models.Model):
     view=models.IntegerField(null=False,default=0)
     writer=models.CharField(max_length=50,null=False)
     comment_cnt=models.IntegerField(null=False,default=0)
+    username=models.CharField(max_length=50,null=False)
 
     class Meta:
         db_table='Board'
