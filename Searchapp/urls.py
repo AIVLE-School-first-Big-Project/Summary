@@ -12,5 +12,7 @@ urlpatterns = [
     # path('login/', views.login, name='login'),
     # path('signup/', views.signup, name='signup'),
     path('booksearch/', views.index, name='booksearch'),
-    path('book/', views.book, name='book'),    
+    path('book/', views.book, name='book'),
+    path('document/', views.document, name = 'document'),
+    path('documentsearch/', views.documentsearch, name = 'documentsearch'),
 ]  

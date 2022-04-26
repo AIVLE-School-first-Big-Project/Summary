@@ -1,0 +1,9 @@
+<h1>
+    논문 검색어를 입력하시오 
+</h1>
+<form action = "http://127.0.0.1:8000/search/documentsearch/" method = "POST">
+    {% csrf_token %}
+    <input type="text" name = "query" placeholder="검색어를 입력해주세요.">
+    <br>
+    <button type = "submit">검색</button>
+</form>
