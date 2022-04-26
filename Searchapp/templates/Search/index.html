@@ -3,7 +3,7 @@
   <h1>
     도서 추천
   </h1>
-  <form action = "http://localhost:8000/search/book/"  method = "POST">
+  <form action = "http://127.0.0.1:8000/search/book/"  method = "POST">
     {% csrf_token %}
     <input type="text" name = "search">
     <button type = "submit">검색</button>
