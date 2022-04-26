@@ -27,10 +27,12 @@ def board_write(request):
 
         if write_form.is_valid():
             writer=request.user.first_name
+            username=request.user.username
             board=Board(
                 b_title=write_form.b_title,
                 b_contents=write_form.b_contents,
                 writer=writer,
+                username=username,
             )
             board.save()
             return redirect('Board:board_list')
@@ -41,14 +43,15 @@ def board_write(request):
                     context['error']=value
             return render(request, 'Board/board_write.html',context)
 
-    return render(request,'Board/board_write.html',context)
+    # return render(request,'Board/board_write.html',context)
 
 def detail_board(request,b_no):
     board_detail=Board.objects.get(b_no=b_no)
     comment_list=Review.objects.filter(b_no=b_no)
     comment_cnt=len(comment_list)
 
-    
+   
+
     context={
         'board_detail' : board_detail,
         'comment_list' : comment_list,
@@ -96,9 +99,10 @@ def comment(request):
             try:
                 print(r_contents)
                 writer=request.user.first_name
+                username=request.user.username
                 
-                review=Review.objects.create(b_no=b_no,r_contents=r_contents,writer=writer)
-                review.save()
+                comment=Review.objects.create(b_no_id=b_no,r_contents=r_contents,writer=writer,username=username)
+                comment.save()
 
                 board=Board.objects.get(b_no=b_no)
                 board.comment_cnt=board.comment_cnt+1
