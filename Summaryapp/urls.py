@@ -11,5 +11,7 @@ urlpatterns = [
     path('', views.summary, name='summary'),
     # path('login/', views.login, name='login'),
     # path('signup/', views.signup, name='signup'),
-    
+    path('text/', views.text, name = 'text'),
+    path('textsummary/', views.textsummary, name = 'textsummary'),
+    path('upload1/', views.upload1, name = 'upload1'),
 ]  
