@@ -65,7 +65,6 @@ def profile_update(request):
 
 def my_category(request, table):
     # user 고유 id
-    # user = request.user.username
     user = request.user.id
     
     # 작성한 글
@@ -77,3 +76,6 @@ def my_category(request, table):
     posts = paginator.get_page(page)
     
     return render(request, 'Main/mypage.html', {'articles' : my_list, 'posts': posts})
+
+# def search(request):
+#     search_list = Board.
