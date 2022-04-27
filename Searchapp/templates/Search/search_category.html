@@ -39,7 +39,9 @@ https://templatemo.com/tm-569-edu-meeting
             <div class="row">
               <div class="col-lg-12">
                 <div class="caption">
-                  <h2>Search</h2>
+                  <a href="{% url 'Mainapp:main' %}">
+                    <h2>Search</h2>
+                  </a>
                   <p>논문과 자격증을 어쩌구...<br>저쩌구...</p>
                 </div>
               </div>
@@ -54,7 +56,7 @@ https://templatemo.com/tm-569-edu-meeting
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
-                          <a href="{% url 'Mainapp:main' %}">
+                          <a href="{% url 'Searchapp:document' %}">
                             <div class="features-small-item">
                                 <div class="icon">
                                     <i><img src="{% static 'images/summary_icon.png' %}" alt=""></i>
@@ -66,7 +68,7 @@ https://templatemo.com/tm-569-edu-meeting
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
-                          <a href="{% url 'Mainapp:main' %}">
+                          <a href="{% url 'Searchapp:booksearch' %}">
                             <div class="features-small-item">
                                 <div class="icon">
                                     <i><img src="{% static 'images/summary_icon.png' %}" alt=""></i>

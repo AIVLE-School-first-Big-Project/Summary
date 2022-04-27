@@ -7,3 +7,5 @@ pip install selenium
 pip install konlpy
 pip install torch
 pip install transformers
+pip install pandas
+pip install sklearn
