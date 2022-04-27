@@ -11,6 +11,7 @@ class Board(models.Model):
     writer=models.CharField(max_length=50,null=False)
     comment_cnt=models.IntegerField(null=False,default=0)
     user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='user_id')
+    # username=models.CharField(max_length=50,null=False)
 
     class Meta:
         db_table='Board'

@@ -1,7 +1,7 @@
 from certifi import contents
 from django.shortcuts import render,redirect
 from . forms import BoardWriteForm
-from Mainapp.models import Board
+from Mainapp.models import Board, Review
 from datetime import date, datetime, timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -51,8 +51,14 @@ def board_write(request):
 
 def detail_board(request,b_no):
     board_detail=Board.objects.get(b_no=b_no)
+    comment_list=Review.objects.filter(b_no=b_no)
+    comment_cnt=len(comment_list)
+
+    
     context={
         'board_detail' : board_detail,
+        'comment_list' : comment_list,
+        'comment_cnt' : comment_cnt,
 
     }
     response = render(request,'Board/detail_board.html',context)
@@ -85,3 +91,68 @@ def board_list(request):
     #request된 페이지를 얻어온 뒤 return 
     posts= paginator.get_page(page)
     return render(request , 'Board/board_list.html',{'boards':boards,'posts':posts})
+
+
+def comment(request):
+    if request.method=='POST':
+        r_contents=request.POST.get('r_contents')
+        b_no=request.POST.get('b_no')
+        print(b_no,r_contents)
+        if r_contents:
+            try:
+                print(r_contents)
+                writer=request.user.first_name
+                
+                review=Review.objects.create(b_no=b_no,r_contents=r_contents,writer=writer)
+                review.save()
+
+                board=Board.objects.get(b_no=b_no)
+                board.comment_cnt=board.comment_cnt+1
+                board.save()
+
+                return redirect('Board:detail_board',b_no)
+            except:
+                return redirect('Board:detail_board',b_no)
+        else:
+            return redirect('Board:detail_board',b_no)
+
+def comment_delete(request,b_no,r_no):
+    try:
+        comment=Review.objects.get(r_no=r_no)
+        comment.delete()
+
+        board=Board.objects.get(b_no=b_no)
+        board.comment_cnt=board.comment_cnt-1
+        board.save()
+
+        return redirect('Board:detail_board',b_no)
+
+    except:
+        return redirect('Board:detail_board',b_no)
+
+def comment_updateurl(request,b_no,r_no):
+    request.session['update_r_no']= r_no
+    print(request.session['update_r_no'])
+
+    return redirect('Board:detail_board',b_no)
+
+def comment_update(request,r_no):
+    if request.method == 'POST':
+        comment=Review.objects.get(r_no=r_no)
+
+        r_contents= request.POST.get('r_contents')
+        b_no=request.POST.get('b_no')
+        r_date=datetime.now()
+
+        if r_contents:
+            try:
+                comment.r_contents=r_contents
+                comment.r_date=r_date
+                comment.save()
+
+                del request.session['update_r_no']
+                return redirect('Board:detail_board',b_no)
+            except:
+                return redirect('Board:detail_board',b_no)
+        else:
+            return redirect('Board:detail_board',b_no)
