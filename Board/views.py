@@ -94,25 +94,32 @@ def comment(request):
     if request.method=='POST':
         r_contents=request.POST.get('r_contents')
         b_no=request.POST.get('b_no')
-        print(b_no,r_contents)
+        print(b_no)
         if r_contents:
             try:
                 print(r_contents)
                 writer=request.user.first_name
-                username=request.user.username
+
+                print(writer)
                 
-                comment=Review.objects.create(b_no_id=b_no,r_contents=r_contents,writer=writer,username=username)
+                comment=Review.objects.create(b_no=b_no,r_contents=r_contents,writer=writer)
                 comment.save()
+
+                print(comment)
 
                 board=Board.objects.get(b_no=b_no)
                 board.comment_cnt=board.comment_cnt+1
                 board.save()
 
+                print(board.comment_cnt)
+
                 return redirect('Board:detail_board',b_no)
             except:
-                return redirect('Board:detail_board',b_no)
+                return redirect('Board:board_list',b_no)
         else:
             return redirect('Board:detail_board',b_no)
+    else:
+        return redirect('Board:detail_board',b_no)
 
 def comment_delete(request,b_no,r_no):
     try:
