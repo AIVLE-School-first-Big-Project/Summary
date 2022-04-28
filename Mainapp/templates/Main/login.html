@@ -55,12 +55,12 @@ https://templatemo.com/tm-569-edu-meeting
             </div>
             
             <div class="main-button-red" style="margin-top: 30px;">
+              {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+              {% endif %}
               <input type="submit" value="로그인" class="login-btn" style="background-color: #4E4E4E;">
             </div>
             <p>Service가 처음이신가요?</p>
-            <!-- <div class="main-button-red">
-              <a href="{% url 'Mainapp:signup' %}">회원가입</a>
-            </div> -->
             <div class="main-button-red" style="margin-top: 20px;">
               <input type="button" value="회원가입" class="login-btn" onClick="location.href='{% url 'Mainapp:signup' %}'" style="background-color: #222529;">
             </div>
@@ -77,13 +77,11 @@ https://templatemo.com/tm-569-edu-meeting
     </div>
     
   </section>
-
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script>
     // 비밀번호 보이게
-    $(document).ready(function() {
-      //alert('실행');
+    $(function(){
       // 눈표시 클릭 시 패스워드 보이기
-      //$(document).on('click', "i[name='eyes']", function(){
       $(document).on("click", ".form-group i", function(){
         $('input[name=password]').toggleClass('active');
         if($('input[name=password]').hasClass('active')){

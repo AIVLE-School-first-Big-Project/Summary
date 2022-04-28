@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Board(models.Model):
@@ -9,7 +10,8 @@ class Board(models.Model):
     view=models.IntegerField(null=False,default=0)
     writer=models.CharField(max_length=50,null=False)
     comment_cnt=models.IntegerField(null=False,default=0)
-    username=models.CharField(max_length=50,null=False)
+    user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='user_id')
+    # username=models.CharField(max_length=50,null=False)
 
     class Meta:
         db_table='Board'

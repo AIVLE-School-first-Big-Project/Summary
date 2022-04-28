@@ -5,6 +5,7 @@ from Mainapp.models import Board, Review
 from datetime import date, datetime, timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 # Create your views here.
 # def board_list(request):
@@ -27,12 +28,15 @@ def board_write(request):
 
         if write_form.is_valid():
             writer=request.user.first_name
-            username=request.user.username
-            board=Board(
+            user_id = request.user.id
+            me = User.objects.get(id = user_id)
+            # print(me)
+            # board = Board.objects.create(username=me, b_title=write_form.b_title, b_contents=write_form.b_contents, writer=writer)
+            board = Board(
                 b_title=write_form.b_title,
                 b_contents=write_form.b_contents,
                 writer=writer,
-                username=username,
+                user_id = me,
             )
             board.save()
             return redirect('Board:board_list')

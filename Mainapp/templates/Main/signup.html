@@ -84,29 +84,26 @@ https://templatemo.com/tm-569-edu-meeting
     
   </section>
 
-    <!-- Scripts -->
+  <!-- Scripts -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script>
       window.onload=function() {
         new scrollReveal();
       }
-    </script>
-    <script>
+      
       // 비밀번호 보이게
-      $(document).ready(function() {
-        
-        //$(function(){
-          // 눈표시 클릭 시 패스워드 보이기
-          $('.form-group i').on('click',function(){
-            $('input[name=password]').toggleClass('active');
-        
-            if( $('input[name=password]').hasClass('active')){
-              $(this).attr('class',"fa fa-eye-slash fa-lg").prev('input').attr('type',"text");
-            }
-            else{
-              $(this).attr('class',"fa fa-eye fa-lg").prev('input').attr('type','password');
-            }
-          });
-        //});
+      $(function(){
+        // 눈표시 클릭 시 패스워드 보이기
+        $(document).on("click", ".form-group i", function(){
+          $('input[name=password1]').toggleClass('active');
+      
+          if( $('input[name=password1]').hasClass('active')){
+            $(this).attr('class',"fa fa-eye-slash fa-lg").prev('input').attr('type',"text");
+          }
+          else{
+            $(this).attr('class',"fa fa-eye fa-lg").prev('input').attr('type','password');
+          }
+        });
       });
     </script>
 </body>
