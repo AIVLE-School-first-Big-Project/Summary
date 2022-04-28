@@ -106,7 +106,7 @@ def comment(request):
 
                 print(writer)
                 
-                comment=Review.objects.create(b_no=b_no,r_contents=r_contents,writer=writer)
+                comment=Review.objects.create(b_no_id=b_no,r_contents=r_contents,writer=writer)
                 comment.save()
 
                 print(comment)

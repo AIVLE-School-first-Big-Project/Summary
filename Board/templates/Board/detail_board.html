@@ -158,12 +158,15 @@
             <div id="layoutSidenav_content">
               <main>
 
-                  <div class="container-fluid px-4 mt-5" , style="border-radius: 30px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7);">
+                  <div class="container-fluid px-4 mt-5" , style="border-radius: 20px; box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7); width: 1000px">
                     <div class="mt-3"></div>
                     <div class="container">
     
-                    <div class="meta" style="color:#78ECD9;">
+                    <div class="meta" style="color:#747474;">
                       #{{ board_detail.b_no }}
+                    </div>
+
+                    <div class="meta" style="color:#282828;">
                       <h3>{{ board_detail.b_title }}</h3>
                     </div>
     
@@ -171,8 +174,8 @@
     
                     <div style="margin:5px; height:45px;">
                       <ul class="context_ul">
-                        <li class="context_li" style="margin-top: 0px;">
-                          <p class="lead">{{board_detail.writer}}</p>
+                        <li class="context_li" style="margin-top: 7px;">
+                          <p class="lead" style='font-size:95%;'>{{board_detail.writer}}</p>
                         </li>
                         <li class="context_li" style="margin-left: 10px;">
                           <text class="meta" style="font-size:85%;">{{board_detail.b_date}}</text>
@@ -209,7 +212,7 @@
                     <div class="mt-3"></div>
     
                     <!-- 글 -->
-                    <p style="font-size:120%;">{{ board_detail.b_contents|safe }}</p>
+                    <p style="font-size:200%;">{{ board_detail.b_contents|safe }}</p>
     
                   
                       <div class="pt-4">
@@ -229,18 +232,18 @@
                   </div>
 
                   <div class="comment_container">
-                    <div class="pt-5" style="width=100%;">
+                    <div class="pt-5" style="width=100%; margin-left : 170px;">
                      
-                        <Button type="button" class="btn btn-primary px-4" onclick="location.href='{% url 'Board:board_list' %}'" style="width:80px;"> <span> 글 목록 </span></Button>
+                        <Button type="button" class="custom-btn btn-6 " onclick="location.href='{% url 'Board:board_list' %}'" style="width:80px;"> <span> 글 목록 </span></Button>
                 
                       
                     </div>
                     
       
                   <!-- 댓글 -->
-                  <div class="pt-5">
+                  <div class="pt-5" style="margin-left:170px;">
             
-                      <h3 class="mb-5">댓글 <text style="font-size:90%; color:#78ECD9;">{{comment_cnt}}</text> </h3>
+                      <h3 class="mb-5" style ='font-size=90%;'>댓글 <text style="font-size:90%; color:#78ECD9;">{{comment_cnt}}</text> </h3>
                       <ul class="comment-list">
                        
                   
@@ -305,8 +308,8 @@
                             <textarea name="r_contents" id="message" placeholder="내용을 입력하세요." cols="30" rows="5" 
                               class="form-control"></textarea>
                           </div>
-                          <div class="form-group">
-                            <input type="submit" value="등록" class="btn btn-primary btn-md text-white">
+                          <div class="form-group" style='margin-top : 10px;'>
+                            <input type="submit" value="등록" class="custom-btn btn-6 px-4">
                           </div>
       
                           </form>

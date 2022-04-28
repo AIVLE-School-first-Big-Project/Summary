@@ -1,6 +1,6 @@
 from django import forms
 from matplotlib import widgets 
-from Mainapp.models import Board
+from Mainapp.models import Board, Review
 from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
 from matplotlib.pyplot import title
