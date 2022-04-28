@@ -2,10 +2,32 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .summary import sentence
 from .textrank import textrank
+from Mainapp.models import File
+from django.contrib.auth.models import User
 
 # Create your views here.
 def summary(request):
-    return render(request, 'Summary/summary.html', {})
+    if request.method == 'POST':
+        # Fetching the form data
+        uploadedFile = request.FILES['uploadedFile']
+        fileTitle = uploadedFile.name
+        writer=request.user.first_name
+        user_id = request.user.id
+        me = User.objects.get(id = user_id)
+        
+        # Saving the information in the database
+        file = File(
+            f_title = fileTitle,
+            uploadedFile = uploadedFile,
+            f_writer=writer,
+            user_id = me,
+        )
+        
+        file.save()
+    
+    files = File.objects.all()
+    
+    return render(request, 'Summary/summary.html', context={'files':files})
 
 def text(request):
     return render(request, 'Summary/text.html')
@@ -48,3 +70,33 @@ def upload1(request):
             return HttpResponse('%s' % (message) )
         
     return render(request, 'Summary/upload1.html')
+
+def uploadFile(request):
+    if request.method == 'POST':
+        # Fetching the form data
+        # fileTitle = request.POST['fileTitle']
+        uploadedFile = request.FILES['uploadedFile']
+        fileTitle = uploadedFile.name
+        writer=request.user.first_name
+        user_id = request.user.id
+        me = User.objects.get(id = user_id)
+        
+        # Save File
+        if uploadedFile:  
+            with open('media/Uploaded Files/%s' % fileTitle, 'wb') as file:
+                for chunk in uploadedFile.chunks():
+                    file.write(chunk)
+        
+        # Saving the information in the database
+        file = File(
+            f_title = fileTitle,
+            uploadedFile = uploadedFile,
+            f_writer=writer,
+            user_id = me,
+        )
+        
+        file.save()
+    
+    files = File.objects.all()
+    
+    return render(request, 'Summary/summary.html', context={'files':files})

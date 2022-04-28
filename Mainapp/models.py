@@ -28,14 +28,17 @@ class Review(models.Model):
         db_table='Review'
         managed=False
 
-class Pile(models.Model):
-    p_no=models.AutoField(primary_key=True)
-    p_content=models.TextField(null=False)
-    p_date=models.DateTimeField(null=False,auto_now_add=True)
-    writer=models.CharField(max_length=50,null=False)
+class File(models.Model):
+    f_no=models.AutoField(primary_key=True)
+    f_title=models.CharField(max_length=200)
+    # p_content=models.TextField(null=False)
+    uploadedFile = models.FileField(upload_to='Uploaded Files/')
+    f_date=models.DateTimeField(null=False,auto_now=True)
+    f_writer=models.CharField(max_length=50,null=False)
+    user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='user_id')
 
     class Meta:
-        db_table='Pile'
+        db_table='File'
         managed=False
 
 class Image(models.Model):
