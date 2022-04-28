@@ -165,3 +165,46 @@ def comment_update(request,r_no):
                 return redirect('Board:detail_board',b_no)
         else:
             return redirect('Board:detail_board',b_no)
+
+
+def update_board(request,b_no):
+    login_session = request.session.get('login_session','')
+    context={'login_session':login_session}
+    board=Board.objects.get(b_no=b_no)
+    b_date=datetime.now()
+    writer =request.user.first_name
+    print(writer)
+
+    if request.method == 'GET':
+        write_form =BoardWriteForm(instance=board)
+        context['forms']=write_form
+        return render(request,'Board/board_write.html',context)
+
+    elif request.method == 'POST':
+        write_form=BoardWriteForm(request.POST)
+        if write_form.is_valid():
+            board.b_date=b_date
+            board.writer=writer
+            board.b_title=write_form.b_title
+            board.b_contents=write_form.b_contents
+
+            board.save()
+
+            return redirect('Board:detail_board',b_no)
+        
+        else:
+            context['forms']=write_form
+            if write_form.errors:
+                for value in write_form.errors.values():
+                    context['error']=value
+            return render(request,'Board:board_write.html',context)
+
+
+def board_delete(request,b_no):
+    try:
+        board=Board.objects.get(b_no=b_no)
+        board.delete()
+        return redirect('Board:board_list')
+
+    except:
+        return redirect('Board:detail_board',b_no)
