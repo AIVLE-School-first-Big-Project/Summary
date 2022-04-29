@@ -1,6 +1,18 @@
-<h1>
-    논문 연관도 순 top 10
-</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/document.css"> <!-- css 경로 -->
+  </head>
+  <h1>
+    논문 추천
+  </h1>
+  <form action = "http://127.0.0.1:8000/search/documentsearch/"  method = "POST">
+    {% csrf_token %}
+    <input type="text" name = "query">
+    <button type = "submit">검색</button>
+  </form>
+</html>
+
 <table border = "1" class = "dataframe">
     <thead>
         <tr style = "text-align : center;">

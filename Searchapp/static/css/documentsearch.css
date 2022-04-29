@@ -1,0 +1,10 @@
+body {
+    background-image:url('/static/images/paper.jpg');
+    background-size: cover;
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+  }
