@@ -1,7 +1,10 @@
-var div9 = document.querySelector('#layoutSidenav_content');
-var btnUpload = div9.querySelector('.main-button-black');
-var inputFile = div9.querySelector('input[type="file"]');
-var uploadBox = div9.querySelector('.upload_container')
+const uploadBox = document.querySelector('.upload_container');
+const inputFile = document.querySelector('#uploadedFile');
+// const previewBox = document.querySelector('#preview');
+const previewBox = document.getElementById('preview');
+// const uploadBtn = document.querySelector('#uploaded-btn');
+const uploadBtn = document.getElementById('uploaded-btn');
+console.dir(inputFile);
 
 // 박스 안에 Drag 들어왔을 때
 uploadBox.addEventListener('dragenter', function(e) {
@@ -29,62 +32,57 @@ uploadBox.addEventListener('drop', function(e) {
 
     console.log('drop');
     this.style.backgroundColor = '#F4F4F4';
-
-    console.dir(e.dataTransfer);
-
-    var data0 = e.dataTransfer.files[0];
-    console.dir(data0);
-    console.log(data0.name);
     
     const data = e.dataTransfer;
     
     // 유효성 check
     if(!isValid(data)) return;
-    
-    const csrftoken = getCookie('csrftoken');
 
-    const filePath = 'Uploaded Files/'+data.files[0].name;
-    const replaceText = filePath.replace(/ /g, '_');
+    inputFile.files = data.files;
+    console.dir(inputFile);
 
-    const formData = new FormData();
-    formData.append('csrfmiddlewaretoken', csrftoken);
-    // formData.append('fileTitle', data.files[0].name);
-    // formData.append('uploadedFile', replaceText);
+    // inputFile.addEventListener('change', () => {
+    //     alert('실행');
+    //     // console.dir(data.files[0]);
 
-    formData.append('file', data.files[0]);
-    
-    console.log(replaceText);
+    //     previewBox.style.visibillity = 'visible';
+    //     uploadBtn.style.visibillity = 'hidden';
 
-    const ajax = fetch('/summary/ajax/', {
-        method: 'post',
-        body: formData
-    });
+    //     var arr = Array.prototype.slice.call(data.files);
 
-    ajax.then(function(response) {
-        return response.text();
-    }).then(function(result) {
-        console.log(result);
-    });
+    //     preview(arr);
+    // });
 
-    // document.getElementById('uploadedFile').value = data.files[0];
-    // const value = document.getElementById('uploadedFile').value;
-    // console.log(value);
 });
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0 ; i < cookies.length ; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
+const handler = {
+    init() {
+        inputFile.addEventListener('change', () => {
+            preview();
+        });
     }
-    return cookieValue;
 }
+
+handler.init();
+
+function checkExtension(fileName, fileSize) {
+    var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+    var maxSize = 5e+7;    // 50MB
+    
+    if (fileSize >= maxSize) {
+    alert('파일 사이즈 초과');
+    inputFile.value = null;
+    return false;
+    }
+
+    if (regex.test(fileName)) {
+        alert('업로드 불가능한 파일이 있습니다.');
+        inputFile.value = null;
+        return false;
+    }
+    return true;
+}
+
 
 function isValid(data) {
     // 파일인지 유효성 검사
@@ -100,65 +98,33 @@ function isValid(data) {
     return true;
 }
 
-function ajax(obj) {
-    const xhr = new XMLHttpRequest();
-
-    var method = obj.method || 'GET';
-    var url = obj.url || '';
-    var data = obj.data || null;
-
-    /* 성공/에러 */
-    xhr.addEventListener('load', function() {
-        const data = xhr.responseText;
-
-        if(obj.load)
-            obj.load(data);
-    });
+function preview() {
+    previewBox.style.visibility = 'visible';
+    uploadBtn.style.visibility = 'hidden';
     
-    /* 성공 */
-    xhr.addEventListener('loadend', function() {
-        const data = xhr.responseText;
+    var file = inputFile.files;
 
-        if(obj.loadend)
-            obj.loadend(data);
-    });
+    if(!checkExtension(file[0].name, file[0].size)) {
+        return false;
+    }
 
-    /* 실패 */
-    xhr.addEventListener('error', function() {
-        console.log('Ajax 중 에러 발생 : ' + xhr.status + ' / ' + xhr.statusText);
 
-        if(obj.error) {
-            obj.error(xhr, xhr.status, xhr.statusText)
-        }
-    });
+    var fileName = file[0].name;
 
-    /* 중단 */
-    xhr.addEventListener('abort', function() {
-        if(obj.abort) {
-            obj.abort(xhr);
-        }
-    });
+    var str = '<div>';
+    str += '<span>'+fileName+'</span><br>';
 
-    /* 진행 */
-    xhr.upload.addEventListener('progress', function() {
-        if(obj.progress) {
-            obj.progress(xhr);
-        }
-    });
-
-    /* 요청 시작 */
-    xhr.addEventListener('loadstart', function() {
-        if(obj.loadstart)
-            obj.loadstart(xhr);
-    });
-
-    if(obj.async === false)
-        xhr.open(method, url, obj.async);
-    else
-        xhr.open(method, url, true);
-    
-    if(obj.contentType)
-        xhr.setRequestHeader('Content-Type', obj.contentType);
-    
-    xhr.send(data);
+    // 이미지 파일 미리보기
+    if (file[0].type.match('image.*')) {
+        // var reader = new FileReader();    // 파일을 읽기 위한 FileReader 객체 생성
+        // reader.onload = function(e) {     // 파일 읽어들이기를 성공했을 때 호출되는 이벤트 핸들러
+        //     str += '<img src="'+e.target.result+'" title="'+fileName+'" width=100 height=100 />';
+        //     str += '</li></div>';
+        //     previewBox.innerHTML += str;
+        // }
+        // reader.readAsDataURL(f);
+    } else {
+        str += `<img src="/static/images/pdf.png" title="${fileName}" width=100 height=100 />`;
+        previewBox.innerHTML += str;
+    }                       
 }

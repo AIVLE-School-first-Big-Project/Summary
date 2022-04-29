@@ -12541,7 +12541,7 @@ mypage
   -khtml-user-select: none; 
   user-select:none;
   line-height: 100px; 
-  display: none;
+  visibility: hidden;
 }
 
 .submit-btn {
