@@ -11,3 +11,6 @@ pip install pandas
 pip install sklearn
 pip install django-summernote
 pip install django-ckeditor
+pip install pdfminer.six
+pip install python-docx
+pip install pytesseract
