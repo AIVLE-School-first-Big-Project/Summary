@@ -9,11 +9,15 @@
 </head>
 <body>
   <!-- 검색창 -->
-  <div class = "box"><h2>Book Recommendation</h2></div>
+  <div class = "box">
+    <a href="http://127.0.0.1:8000/search/booksearch/">
+      <img src="/static/images/booklogo.png" width="250">
+    </a>
+  </div>
     <div class="search-box">
       <form action = "http://127.0.0.1:8000/search/book/"  method = "POST">
       {% csrf_token %}
-      <input class="search-txt" type="text" name="search" placeholder="입력하세요">
+      <input class="search-txt" type="text" name="search" placeholder="검색어를 입력하세요.">
       <a class="search-btn">
         <i class="fas fa-search"></i>
       </a>
