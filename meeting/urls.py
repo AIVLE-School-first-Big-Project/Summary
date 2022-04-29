@@ -4,7 +4,9 @@ from . import views
 app_name = 'meeting'
 
 urlpatterns = [
-    path('', views.audio),
-    path('home', views.audio),
+    path('meetingstart/meeting', views.audio),
+    # path('home', views.audio),
+    path('meetingstart/', views.meetingstart, name='meetingstart'),
+
 
 ]

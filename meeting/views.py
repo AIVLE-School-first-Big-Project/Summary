@@ -1,6 +1,7 @@
 from contextlib import redirect_stdout
+import re
 from urllib import request
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 import requests
@@ -8,6 +9,10 @@ import json
 import speech_recognition as sr
 from .models import Meeting
 
+
+def meetingstart(request):
+    
+    return render(request,'meetingstart.html')
 
 def audio(request):
     url = "https://kakaoi-newtone-openapi.kakao.com/v1/recognize"
@@ -27,3 +32,8 @@ def audio(request):
     # meetings = Meeting.objects
 
     return HttpResponse(str(result['value']))   
+
+
+# def meetingstart(request):
+#     return render(request , 'meeting/meetingstart.html')
+

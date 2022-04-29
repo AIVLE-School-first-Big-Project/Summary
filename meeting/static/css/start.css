@@ -1,0 +1,29 @@
+body {
+    background-image:url('/static/images/paper.jpg');
+    background-size: cover;
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+  }
+/* 
+  .search-box{
+    position: absolute;
+    top: 50%;
+    left : 30%;
+    background: #2f3640;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+    width: 600px;
+  } */
+
+/* .box {
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+} */
