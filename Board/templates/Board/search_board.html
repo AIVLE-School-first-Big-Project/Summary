@@ -7,11 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Summary</title>
+        <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <!-- <link href="assets/css/main.css" rel="stylesheet" /> -->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
     </head>
     <body class="sb-nav-fixed">
         {% include 'header.html' %}              
@@ -22,11 +23,11 @@
                       <div class="row m-5 p-3 align-items-center" style = "float: none; margin:100 auto">
                         <div class="col-lg-10 mb-5 mb-lg-0" style="float: none; margin:0 auto;">
             
-                          <form action="{% url 'Board:search'%}" method="POST" class="d-flex search-form">
+                          <form action="{% url 'Board:search'%} " method="POST" class="d-flex search-form">
                             <span class="icon-"></span>
                             {% csrf_token %}
                             <input type="search" name="q" value="{{q}}" class="form-control mx-2" placeholder="Search for...">
-                            <button class="btn btn-primary mx-2" id="btnNavbarSearch" type="summit"><i class="fas fa-search"></i></button>
+                            <button class="btn btn-primary mx-2" id="btnNavbarSearch" type="summit" ><i class="fas fa-search"></i></button>
                             {% if user.is_authenticated %}
                             <Button id="writing_button" type="button" class="btn btn-primary" onclick="location.href='{% url "Board:board_write" %}'">
                               <i class="fa-solid fa-pencil"></i>
@@ -63,7 +64,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class ='text-dark'>
-                                        {%for board in posts %}
+                                        {%for board in search_posts %}
                                         {%if board.b_title != None%}
                                         <tr onclick="location.href = '/Board/reading/board/{{board.b_no}}'" style="cursor: pointer;">
                                             <th scope='row'>{{board.b_no}}</th>
@@ -158,23 +159,4 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <!-- <script src="assets/js/datatables-simple-demo.js"></script> -->
     </body>
-</html>
-
-
-      
-      
-
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
-    <script>
-      window.onload=function() {
-        new scrollReveal();
-      }
-    </script>
-</body>
-
 </html>

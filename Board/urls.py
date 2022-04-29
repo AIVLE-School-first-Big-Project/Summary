@@ -13,4 +13,6 @@ urlpatterns = [
     path('board/comment/delete/<int:b_no>/<int:r_no>', views.comment_delete,  name='comment_delete'),
     path('board/comment/update/<int:b_no>/<int:r_no>', views.comment_updateurl,  name='comment_updateurl'),
     path('board/comment/update/<int:r_no>', views.comment_update,  name='comment_update'),
+
+    path('search/',views.search,name='search'),
 ]

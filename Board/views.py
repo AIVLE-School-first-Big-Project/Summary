@@ -208,3 +208,23 @@ def board_delete(request,b_no):
 
     except:
         return redirect('Board:detail_board',b_no)
+
+
+def search(request):
+    search_boards=Board.objects.all().order_by('-b_date')
+    q=request.POST.get('q',"")
+    print(q)
+    if q:
+        list_board=search_boards=search_boards.filter(
+            Q(b_title__icontains = q) | #제목
+            Q(b_contents__icontains = q) | #내용
+            Q(writer__icontains = q) #글쓴이
+        )
+
+        paginator=Paginator(list_board,9)
+        page=request.GET.get('page')
+        search_posts=paginator.get_page(page)
+        return render(request,'Board/search_board.html',{'search_boards':list_board,'search_posts':search_posts,'q':q})
+
+    else:
+        return render(request,'Mainapp:main')
