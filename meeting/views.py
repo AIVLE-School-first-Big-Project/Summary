@@ -33,7 +33,3 @@ def audio(request):
 
     return HttpResponse(str(result['value']))   
 
-
-def meetingstart(request):
-    return render(request , 'meeting/meetingstart.html')
-
