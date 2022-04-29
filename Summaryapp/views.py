@@ -82,10 +82,10 @@ def uploadFile(request):
         me = User.objects.get(id = user_id)
         
         # Save File
-        if uploadedFile:  
-            with open('media/Uploaded Files/%s' % fileTitle, 'wb') as file:
-                for chunk in uploadedFile.chunks():
-                    file.write(chunk)
+        # if uploadedFile:  
+        #     with open('media/Uploaded Files/%s' % fileTitle, 'wb') as file:
+        #         for chunk in uploadedFile.chunks():
+        #             file.write(chunk)
         
         # Saving the information in the database
         file = File(
@@ -97,6 +97,18 @@ def uploadFile(request):
         
         file.save()
     
-    files = File.objects.all()
+    # files = File.objects.all()
     
-    return render(request, 'Summary/summary.html', context={'files':files})
+    return render(request, 'Summary/summary.html')
+
+def ajax_upload(request):
+    if request.method == 'POST':
+        # uploadedFile = request.POST.get('uploadedFile')
+        # fileTitle = request.POST.get('fileTitle')
+        # # fileTitle = uploadedFile.name
+        # writer=request.user.first_name
+        # user_id = request.user.id
+        # me = User.objects.get(id = user_id)
+        file = request.POST.get('file')
+    
+    return render(request, 'Summary/summary.html', context={'file':file})

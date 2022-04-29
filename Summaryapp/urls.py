@@ -14,6 +14,7 @@ urlpatterns = [
     path('text/', views.text, name = 'text'),
     path('textsummary/', views.textsummary, name = 'textsummary'),
     path('upload1/', views.upload1, name = 'upload1'),
+    path('ajax/', views.ajax_upload, name='ajax_upload'),
     # path('uploadfile/', views.uploadFile, name = 'uploadFile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
