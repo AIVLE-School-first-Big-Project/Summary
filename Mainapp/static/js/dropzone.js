@@ -1,8 +1,6 @@
 const uploadBox = document.querySelector('.upload_container');
 const inputFile = document.querySelector('#uploadedFile');
-// const previewBox = document.querySelector('#preview');
 const previewBox = document.getElementById('preview');
-// const uploadBtn = document.querySelector('#uploaded-btn');
 const uploadBtn = document.getElementById('uploaded-btn');
 console.dir(inputFile);
 
@@ -41,18 +39,7 @@ uploadBox.addEventListener('drop', function(e) {
     inputFile.files = data.files;
     console.dir(inputFile);
 
-    // inputFile.addEventListener('change', () => {
-    //     alert('실행');
-    //     // console.dir(data.files[0]);
-
-    //     previewBox.style.visibillity = 'visible';
-    //     uploadBtn.style.visibillity = 'hidden';
-
-    //     var arr = Array.prototype.slice.call(data.files);
-
-    //     preview(arr);
-    // });
-
+    preview();
 });
 
 const handler = {
@@ -99,6 +86,11 @@ function isValid(data) {
 }
 
 function preview() {
+    // 또는, innerHTML 초기화
+    while(previewBox.firstChild) {
+        previewBox.removeChild(previewBox.firstChild);
+    }
+
     previewBox.style.visibility = 'visible';
     uploadBtn.style.visibility = 'hidden';
     
@@ -107,7 +99,6 @@ function preview() {
     if(!checkExtension(file[0].name, file[0].size)) {
         return false;
     }
-
 
     var fileName = file[0].name;
 
