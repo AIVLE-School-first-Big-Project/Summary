@@ -2,7 +2,8 @@ const uploadBox = document.querySelector('.upload_container');
 const inputFile = document.querySelector('#uploadedFile');
 const previewBox = document.getElementById('preview');
 const uploadBtn = document.getElementById('uploaded-btn');
-console.dir(inputFile);
+
+var path = '';
 
 // 박스 안에 Drag 들어왔을 때
 uploadBox.addEventListener('dragenter', function(e) {
@@ -37,7 +38,6 @@ uploadBox.addEventListener('drop', function(e) {
     if(!isValid(data)) return;
 
     inputFile.files = data.files;
-    console.dir(inputFile);
 
     preview();
 });
@@ -91,8 +91,10 @@ function preview() {
         previewBox.removeChild(previewBox.firstChild);
     }
 
-    previewBox.style.visibility = 'visible';
-    uploadBtn.style.visibility = 'hidden';
+    // previewBox.style.visibility = 'visible';
+    // uploadBtn.style.visibility = 'hidden';
+    previewBox.style.display = 'block';
+    uploadBtn.style.display = 'none';
     
     var file = inputFile.files;
 
@@ -102,8 +104,8 @@ function preview() {
 
     var fileName = file[0].name;
 
-    var str = '<div>';
-    str += '<span>'+fileName+'</span><br>';
+    var str = '<div style="width:100%;">';
+    str += '<span style="font-weight:bold; margin-top:15px;">'+fileName+'</span><br>';
 
     // 이미지 파일 미리보기
     if (file[0].type.match('image.*')) {
@@ -115,7 +117,122 @@ function preview() {
         // }
         // reader.readAsDataURL(f);
     } else {
-        str += `<img src="/static/images/pdf.png" title="${fileName}" width=100 height=100 />`;
+        // str += `<img src="/static/images/pdf.png" title="${fileName}" width=100 height=100 />`;
+        // /static/example.pdf
+        // str += `<a onclick="window.open(document.getElementById('img').getAttribute('src'));">`
+        str += `<a href="#">`
+        // console.log(document.getElementById('img').getAttribute('src'));
+        str += `<img src="/static/images/pdf.png" id="img" title="${fileName}" data-pdf-thumbnail-file="/static/example.pdf" width=220 style="max-width:100%; height: auto; max-height:250px; margin-top:15px;" /></a>`;
         previewBox.innerHTML += str;
+
+        // pdf 썸네일
+        if (
+            document.readyState === "complete" ||
+            (document.readyState !== "loading" && !document.documentElement.doScroll)
+        ) {
+            // alert('if실행');
+            createPDFThumbnails();
+        } else {
+            // alert('eles실행');
+            document.addEventListener("DOMContentLoaded", createPDFThumbnails);
+        }   
     }                       
 }
+
+/**
+ * https://github.com/scandel/pdfThumbnails
+ * Find all img elements with data-pdf-thumbnail-file attribute,
+ * then load pdf file given in the attribute,
+ * then use pdf.js to draw the first page on a canvas, 
+ * then convert it to base64,
+ * then set it as the img src.
+ */
+ var createPDFThumbnails = function(){
+    // alert('실행');
+
+    var worker = null;
+    var loaded = false;
+    var renderQueue = [];
+
+    // select all img elements with data-pdf-thumbnail-file attribute
+    var nodesArray = Array.prototype.slice.call(document.querySelectorAll('img[data-pdf-thumbnail-file]'));
+
+    if (!nodesArray.length) {
+        // No PDF found, don't load PDF.js
+        return;
+    }
+
+    if (!loaded && typeof(pdfjsLib) === 'undefined') {
+        var src = document.querySelector('script[data-pdfjs-src]').getAttribute('data-pdfjs-src');
+
+        console.log(src);
+
+        if (!src) {
+            throw Error('PDF.js URL not set in "data-pdfjs-src" attribute: cannot load PDF.js');
+        }
+
+        var script = document.createElement('script'); 
+        script.src = src;
+        document.head.appendChild(script).onload = renderThumbnails;
+        loaded = true;
+    }
+    else {
+        renderThumbnails();
+    }
+
+    function renderThumbnails() {
+        if (!pdfjsLib) {
+            throw Error("pdf.js failed to load. Check data-pdfjs-src attribute.");
+        }
+
+        nodesArray.forEach(function(element) {
+            if (null === worker) {
+                worker = new pdfjsLib.PDFWorker();
+            }
+
+            // var filePath = element.getAttribute('data-pdf-thumbnail-file');
+            let reader = new FileReader();
+            reader.readAsDataURL(inputFile.files[0]);
+            reader.onloadend = function(e, filePath) {
+                filePath = e.target.result;
+                // document.getElementById('pdf_a').href = filePath;
+
+                var imgWidth = element.getAttribute('width');
+                var imgHeight = element.getAttribute('height');
+    
+                pdfjsLib.getDocument({url: filePath, worker: worker}).promise.then(function (pdf) {
+                    // alert('실행');
+                    pdf.getPage(1).then(function (page) {
+                        var canvas = document.createElement("canvas");
+                        var viewport = page.getViewport({scale: 1.0});
+                        var context = canvas.getContext('2d');
+    
+                        if (imgWidth) {
+                            viewport = page.getViewport({scale: imgWidth / viewport.width});
+                        } else if (imgHeight) {
+                            viewport = page.getViewport({scale: imgHeight / viewport.height});
+                        }
+    
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+    
+                        page.render({
+                            canvasContext: context,
+                            viewport: viewport
+                        }).promise.then(function () {
+                            element.src = canvas.toDataURL();
+                        });
+                    }).catch(function() {
+                        console.log("pdfThumbnails error: could not open page 1 of document " + filePath + ". Not a pdf ?");
+                    });
+                }).catch(function() {
+                    console.log("pdfThumbnails error: could not find or open document " + filePath + ". Not a pdf ?");
+                });
+            }
+            // alert(path);
+            // alert(filePath);
+        });
+    }
+};
+
+

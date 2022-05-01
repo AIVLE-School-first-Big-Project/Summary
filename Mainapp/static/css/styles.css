@@ -12510,22 +12510,25 @@ mypage
 }
 
 .upload_container {
-  width: 700px;
-  height: 240px;
+  /* 700, 240 */
+  width: 800px;
+  /* 240 */
+  height: 350px;
   margin: 0px auto;
   background-color: #F4F4F4;
   border-radius: 30px;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
-  text-align: center; 
+  text-align: center;
   /* padding : 100px 0; */
   /* line-height: 100px; */
 }
 
 .uploaded-btn {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   /* padding: 6px 25px; */
+  /* margin: 0 auto; */
   border-radius: 4px;
   color: white;
   cursor: pointer;
@@ -12535,13 +12538,18 @@ mypage
 }
 
 .upload_container #preview {
+  /* width: 800px; */
+  height: 350px;
   -ms-user-select: none; 
   -moz-user-select: -moz-none; 
   -webkit-user-select: none; 
   -khtml-user-select: none; 
   user-select:none;
-  line-height: 100px; 
-  visibility: hidden;
+  line-height: 50px; 
+  text-align: center;
+  display: none;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .submit-btn {
