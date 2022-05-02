@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import UserForm, CustomUserChangeForm
 from django.contrib.auth.models import User
-from Mainapp.models import Board
+from Mainapp.models import Board, Review
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 # Create your views here.
 def main(request):
@@ -70,12 +71,33 @@ def my_category(request, table):
     # 작성한 글
     if table == 'article':
         my_list = Board.objects.filter(user_id=user).order_by('-b_date')
+    elif table == 'comment':
+        # 본인이 쓴 댓글의 게시글 번호 뽑아오기
+        comments_set = Review.objects.filter(user_id=user).values('b_no')
+
+        # 쿼리셋 => 리스트(딕셔너리)
+        comments = list(comments_set)
+        
+        # 각 게시글 번호를 리스트에 넣기
+        boards = []
+        for com in comments:
+            boards.append(list(com.values()))
+            
+        # 2차원 리스트를 1차원 리스트로 변환
+        boards = sum(boards, [])
+        
+        # b_no에 맞는 조건 & 게시글 뽑기
+        q = Q()
+        for b in boards:
+            q.add(Q(b_no=b), q.OR)
+        
+        my_list = Board.objects.filter(q).order_by('-b_date')
     
     paginator = Paginator(my_list, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     
-    return render(request, 'Main/mypage.html', {'articles' : my_list, 'posts': posts})
+    return render(request, 'Main/mypage.html', {'articles' : my_list, 'posts': posts, 'category': table})
 
 # def search(request):
 #     search_list = Board.

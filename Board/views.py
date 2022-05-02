@@ -103,19 +103,26 @@ def comment(request):
             try:
                 print(r_contents)
                 writer=request.user.first_name
+                user_id = request.user.id
+                me = User.objects.get(id = user_id)
 
-                print(writer)
+                # print(writer)
                 
-                comment=Review.objects.create(b_no_id=b_no,r_contents=r_contents,writer=writer)
+                comment=Review.objects.create(
+                    b_no_id=b_no,
+                    r_contents=r_contents,
+                    writer=writer,
+                    user_id = me,
+                )
                 comment.save()
 
-                print(comment)
+                # print(comment)
 
                 board=Board.objects.get(b_no=b_no)
                 board.comment_cnt=board.comment_cnt+1
                 board.save()
 
-                print(board.comment_cnt)
+                # print(board.comment_cnt)
 
                 return redirect('Board:detail_board',b_no)
             except:

@@ -31,9 +31,20 @@
                             </div>
                         </div>
                         <div class="mypage_category mt-5">
-                            <a href="{% url 'Mainapp:my_category' 'article' %}" style="color: black;">작성한 글</a>
-                            <a href="#">작성한 댓글</a>
-                            <a href="#">요약 결과본</a>
+                            {% if category == 'article' %}
+                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article' style="color: black;">작성한 글</a>
+                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>작성한 댓글</a>
+                                <a href="#" id="result">요약 결과본</a>
+                            {% elif category == 'comment' %}
+                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>작성한 글</a>
+                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment' style="color: black;">작성한 댓글</a>
+                                <a href="#" id="result">요약 결과본</a>
+                            {% else %}
+                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>작성한 글</a>
+                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>작성한 댓글</a>
+                                <a href="#" id="result" style="color: black;">요약 결과본</a> 
+                            {% endif %}
+                            
                             <hr class="dropdown-divider" />
                         </div>
                          <!-- Navbar Search-->
@@ -91,15 +102,5 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <!-- <script src="assets/js/datatables-simple-demo.js"></script> -->
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-
-        <script>
-            $(document).ready(function() {
-                $(document).on("click", ".mypage_category a", function(){
-                    $('.mypage_category a').css("color","#AFAFAF");
-                    $(this).css("color","#000");
-                });
-            });
-            //my_article.click();
-        </script>
     </body>
 </html>
