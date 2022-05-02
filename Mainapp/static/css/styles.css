@@ -12524,9 +12524,18 @@ mypage
   /* line-height: 100px; */
 }
 
+.btn-container {
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+}
+
 .uploaded-btn {
   width: 70px;
   height: 70px;
+  /* max-width: 100%;
+  max-height: 100%; */
+  /* vertical-align: middle; */
   /* padding: 6px 25px; */
   /* margin: 0 auto; */
   border-radius: 4px;
@@ -12535,6 +12544,7 @@ mypage
   background-image: url('/static/images/upload-icon.png');
   background-repeat: no-repeat;
   background-size: cover;
+  margin: 140px 0;
 }
 
 .upload_container #preview {

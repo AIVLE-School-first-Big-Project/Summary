@@ -3,8 +3,6 @@ const inputFile = document.querySelector('#uploadedFile');
 const previewBox = document.getElementById('preview');
 const uploadBtn = document.getElementById('uploaded-btn');
 
-var path = '';
-
 // 박스 안에 Drag 들어왔을 때
 uploadBox.addEventListener('dragenter', function(e) {
     console.log('dragenter');
@@ -57,13 +55,13 @@ function checkExtension(fileName, fileSize) {
     var maxSize = 5e+7;    // 50MB
     
     if (fileSize >= maxSize) {
-    alert('파일 사이즈 초과');
+    alert('50MB 이상인 파일은 업로드할 수 없습니다.');
     inputFile.value = null;
     return false;
     }
 
     if (regex.test(fileName)) {
-        alert('업로드 불가능한 파일이 있습니다.');
+        alert('업로드 불가능한 파일입니다.');
         inputFile.value = null;
         return false;
     }
@@ -73,8 +71,10 @@ function checkExtension(fileName, fileSize) {
 
 function isValid(data) {
     // 파일인지 유효성 검사
-    if (data.types.indexOf('Files') < 0)
+    if (data.types.indexOf('Files') < 0) {
+        alert('업로드 불가능한 파일입니다.');
         return false;
+    }
     
     // 파일의 사이즈는 50MB 미만
     if (data.files[0].size >= 1024 * 1024 * 50) {
@@ -91,8 +91,6 @@ function preview() {
         previewBox.removeChild(previewBox.firstChild);
     }
 
-    // previewBox.style.visibility = 'visible';
-    // uploadBtn.style.visibility = 'hidden';
     previewBox.style.display = 'block';
     uploadBtn.style.display = 'none';
     
@@ -104,8 +102,9 @@ function preview() {
 
     var fileName = file[0].name;
 
-    var str = '<div style="width:100%;">';
-    str += '<span style="font-weight:bold; margin-top:15px;">'+fileName+'</span><br>';
+    var str = '<div style="width:100%; position: relative;">';
+    str += '<span style="font-weight:bold; display:inline-block; width:710px;">'+fileName+'</span>';
+    str += `<img src="/static/images/cancel.png" onClick="deleteImg()" style="float: right; margin-top: 5px; width: 30px; height: 30px; position: absolute; cursor: pointer;"/><br>`
 
     // 이미지 파일 미리보기
     if (file[0].type.match('image.*')) {
@@ -117,10 +116,8 @@ function preview() {
         // }
         // reader.readAsDataURL(f);
     } else {
-        // str += `<img src="/static/images/pdf.png" title="${fileName}" width=100 height=100 />`;
-        // /static/example.pdf
         // str += `<a onclick="window.open(document.getElementById('img').getAttribute('src'));">`
-        str += `<a href="#">`
+        // str += `<a href="#" id="pdf_a">`
         // console.log(document.getElementById('img').getAttribute('src'));
         str += `<img src="/static/images/pdf.png" id="img" title="${fileName}" data-pdf-thumbnail-file="/static/example.pdf" width=220 style="max-width:100%; height: auto; max-height:250px; margin-top:15px;" /></a>`;
         previewBox.innerHTML += str;
@@ -130,13 +127,25 @@ function preview() {
             document.readyState === "complete" ||
             (document.readyState !== "loading" && !document.documentElement.doScroll)
         ) {
-            // alert('if실행');
             createPDFThumbnails();
         } else {
-            // alert('eles실행');
             document.addEventListener("DOMContentLoaded", createPDFThumbnails);
         }   
     }                       
+}
+
+function deleteImg() {
+    // 또는, innerHTML 초기화
+    while(previewBox.firstChild) {
+        previewBox.removeChild(previewBox.firstChild);
+    }
+
+    inputFile.value = null;
+
+    previewBox.style.display = 'none';
+    uploadBtn.style.display = 'inline-block';
+
+    uploadBtn.style.margin = '140px auto';
 }
 
 /**
@@ -148,8 +157,6 @@ function preview() {
  * then set it as the img src.
  */
  var createPDFThumbnails = function(){
-    // alert('실행');
-
     var worker = null;
     var loaded = false;
     var renderQueue = [];
@@ -190,11 +197,10 @@ function preview() {
                 worker = new pdfjsLib.PDFWorker();
             }
 
-            // var filePath = element.getAttribute('data-pdf-thumbnail-file');
             let reader = new FileReader();
             reader.readAsDataURL(inputFile.files[0]);
             reader.onloadend = function(e, filePath) {
-                filePath = e.target.result;
+                var filePath = e.target.result;
                 // document.getElementById('pdf_a').href = filePath;
 
                 var imgWidth = element.getAttribute('width');
@@ -229,8 +235,6 @@ function preview() {
                     console.log("pdfThumbnails error: could not find or open document " + filePath + ". Not a pdf ?");
                 });
             }
-            // alert(path);
-            // alert(filePath);
         });
     }
 };

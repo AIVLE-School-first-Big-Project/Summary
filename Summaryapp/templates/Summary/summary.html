@@ -22,27 +22,22 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">pdf 파일을 읽어 간단하게 요약해주는 서비스입니다.<br>업로드 한 번으로 시간을 절약하세요.</li>
                         </ol>
-                        <center>
+                        <!-- <center> -->
                             <div class="upload_container">
                                 <form action="{% url 'Summaryapp:summary' %}" method="POST" enctype="multipart/form-data" class="dropzone">
                                     <div id="preview"></div>
-                                    <label class="uploaded-btn" for="uploadedFile" id="uploaded-btn" style="margin: 140px 0;"></label>
+                                    <!-- <div class="btn-container"> -->
+                                    <div style="text-align: center;">
+                                        <label class="uploaded-btn" for="uploadedFile" id="uploaded-btn"></label>
+                                    </div>
                                     <input type="file" name="uploadedFile" id="uploadedFile" style="display: none;">
                                     {% csrf_token %}
                             </div>
-                                <!-- <center> -->
-                            <input type="submit" value="Upload" class="submit-btn">
-                                <!-- </center> -->
+                            <div style="text-align: center;">
+                                <input type="submit" value="Upload" class="submit-btn">
+                            </div>
                             </form>
-                        </center>
-<!-- 
-                        <div class="col-sm-6">
-                            <h4>col-sm-6</h4>
-                            <a href="{% static 'example.pdf' %}">
-                                <img class="img-responsive" data-pdf-thumbnail-file="{% static 'example.pdf' %}" src="{% static 'images/pdf.png' %}">
-                            </a>
-                        </div> -->
-
+                        <!-- </center> -->
                     </div>
                 </main>
             </div>
@@ -51,11 +46,7 @@
         <script src="{% static 'js/scripts.js' %}"></script>
         <script src="{% static 'js/dropzone.js' %}" data-pdfjs-src="{% static 'pdf.js/build/pdf.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-          <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-        <!-- <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script> -->
-        <!-- <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script> -->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <!-- <script src="assets/js/datatables-simple-demo.js"></script> -->
     </body>
 </html>
