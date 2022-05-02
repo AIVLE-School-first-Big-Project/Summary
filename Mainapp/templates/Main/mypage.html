@@ -10,7 +10,9 @@
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-        <!-- <link href="assets/css/main.css" rel="stylesheet" /> -->
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/icons.css' %}" />
+
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -26,22 +28,22 @@
                             <h5 style="margin-top: 28px;">{{ user.username }}</h5>
                             <h5 style="margin-top: 10px;">{{ user.first_name }}</h5>
                             <!-- <h5>이메일</h5> -->
-                            <div class="main-button-black">
+                            <div class="main-button-black" onclick="loading()">
                                 <a href="{% url 'Mainapp:logout' %}" style="background-color: #959595;">로그아웃</a>
                             </div>
                         </div>
-                        <div class="mypage_category mt-5">
+                        <div class="mypage_category mt-5" onclick="loading()">
                             {% if category == 'article' %}
-                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article' style="color: black;">작성한 글</a>
-                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>작성한 댓글</a>
+                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article' style="color: black;">내가 쓴 글</a>
+                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>댓글 단 글</a>
                                 <a href="#" id="result">요약 결과본</a>
                             {% elif category == 'comment' %}
-                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>작성한 글</a>
-                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment' style="color: black;">작성한 댓글</a>
+                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>내가 쓴 글</a>
+                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment' style="color: black;">댓글 단 글</a>
                                 <a href="#" id="result">요약 결과본</a>
                             {% else %}
-                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>작성한 글</a>
-                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>작성한 댓글</a>
+                                <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>내가 쓴 글</a>
+                                <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>댓글 단 글</a>
                                 <a href="#" id="result" style="color: black;">요약 결과본</a> 
                             {% endif %}
                             
@@ -106,5 +108,8 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <!-- <script src="assets/js/datatables-simple-demo.js"></script> -->
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/loadingoverlay.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/loading.js' %}"></script>
     </body>
 </html>
