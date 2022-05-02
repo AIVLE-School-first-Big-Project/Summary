@@ -1,9 +1,30 @@
-<h1>
-    논문 검색어를 입력하시오 
-</h1>
-<form action = "http://127.0.0.1:8000/search/documentsearch/" method = "POST">
-    {% csrf_token %}
-    <input type="text" name = "query" placeholder="검색어를 입력해주세요.">
-    <br>
-    <button type = "submit">검색</button>
-</form>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Document recommendation</title>
+  <link rel="stylesheet" href="/static/css/document.css"> <!-- css 경로 -->
+  <script src="https://kit.fontawesome.com/b0ef0a4fe9.js" crossorigin="anonymous"></script>
+</head>
+<div class="home-btn">
+  <a href="http://127.0.0.1:8000/">
+    <img src="/static/images/homebtn.png" width="30">
+  </a>
+  </div>
+<body>
+  <!-- 검색창 -->
+  <div class = "box"><a href="http://127.0.0.1:8000/search/document/">
+    <img src="/static/images/paperlogo.png" width="250">
+  </a>
+</div>
+    <div class="search-box">
+      <form action = "http://127.0.0.1:8000/search/documentsearch/"  method = "POST">
+      {% csrf_token %}
+      <input class="search-txt" type="text" name="query" placeholder="입력하세요">
+      <a class="search-btn">
+        <i class="fas fa-search"></i>
+      </a>
+    </div>
+  </body>
+</html>

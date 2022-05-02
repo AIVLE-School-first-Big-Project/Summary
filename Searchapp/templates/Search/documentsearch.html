@@ -1,7 +1,31 @@
-<h1>
-    논문 연관도 순 top 10
-</h1>
-<table border = "1" class = "dataframe">
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/documentsearch.css"> <!-- css 경로 -->
+    <script src="https://kit.fontawesome.com/b0ef0a4fe9.js" crossorigin="anonymous"></script>
+  </head>
+  <div class="home-btn">
+    <a href="http://127.0.0.1:8000/">
+      <img src="/static/images/homebtn.png" width="30">
+    </a>
+    </div>
+    <div class = "box">
+        <a href="http://127.0.0.1:8000/search/document/">
+          <img src="/static/images/paperlogo.png" width="250">
+        </a>
+      </div>
+    <div class="search-box">
+  <form action = "http://127.0.0.1:8000/search/documentsearch/"  method = "POST">
+    {% csrf_token %}
+    <input class="search-txt" type="text" name="query" placeholder="입력하세요">
+    <a class="search-btn">
+        <i class="fas fa-search"></i>
+      </a>
+    </div>
+  </form>
+</html>
+
+<table class = "papertable">
     <thead>
         <tr style = "text-align : center;">
             <th>추천순위</th>
@@ -15,7 +39,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+      <tr style="text-align: center;">
+
             <td>1</td>
             <td>{{doc1.0}}</td>
             <td>{{doc2.0}}</td>
@@ -25,7 +50,8 @@
             <td>{{doc6.0}}</td>
             <td><a href = {{doc8.0}}>{{doc8.0}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>2</td>
             <td>{{doc1.1}}</td>
             <td>{{doc2.1}}</td>
@@ -35,7 +61,8 @@
             <td>{{doc6.1}}</td>
             <td><a href = {{doc8.1}}>{{doc8.1}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>3</td>
             <td>{{doc1.2}}</td>
             <td>{{doc2.2}}</td>
@@ -45,7 +72,8 @@
             <td>{{doc6.2}}</td>
             <td><a href = {{doc8.2}}>{{doc8.2}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>4</td>
             <td>{{doc1.3}}</td>
             <td>{{doc2.3}}</td>
@@ -55,7 +83,8 @@
             <td>{{doc6.3}}</td>
             <td><a href = {{doc8.3}}>{{doc8.3}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>5</td>
             <td>{{doc1.4}}</td>
             <td>{{doc2.4}}</td>
@@ -65,7 +94,8 @@
             <td>{{doc6.4}}</td>
             <td><a href = {{doc8.4}}>{{doc8.4}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>6</td>
             <td>{{doc1.5}}</td>
             <td>{{doc2.5}}</td>
@@ -75,7 +105,8 @@
             <td>{{doc6.5}}</td>
             <td><a href = {{doc8.5}}>{{doc8.5}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>7</td>
             <td>{{doc1.6}}</td>
             <td>{{doc2.6}}</td>
@@ -85,7 +116,8 @@
             <td>{{doc6.6}}</td>
             <td><a href = {{doc8.6}}>{{doc8.6}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>8</td>
             <td>{{doc1.7}}</td>
             <td>{{doc2.7}}</td>
@@ -95,7 +127,8 @@
             <td>{{doc6.7}}</td>
             <td><a href = {{doc8.7}}>{{doc8.7}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>9</td>
             <td>{{doc1.8}}</td>
             <td>{{doc2.8}}</td>
@@ -105,7 +138,8 @@
             <td>{{doc6.8}}</td>
             <td><a href = {{doc8.8}}>{{doc8.8}}</a></td>
         </tr>
-        <tr>
+        <tr style="text-align: center;">
+
             <td>10</td>
             <td>{{doc1.9}}</td>
             <td>{{doc2.9}}</td>
@@ -117,6 +151,7 @@
         </tr>
     </tbody>
 </table>
+
 
 <div id = "div1" align = "center">
     <h6>top 1 국문초록<br>{{doc7.0}}</h6><br>

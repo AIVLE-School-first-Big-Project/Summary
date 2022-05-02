@@ -8,11 +8,6 @@ body {
     list-style: none;
     text-decoration: none;
   }
-  .header{
-    height: 80px;
-    width: 70%;
-    border-bottom: 3px solid #f1d39c;
-  }
   .search-box{
     position: absolute;
     top: 50%;
@@ -46,22 +41,41 @@ body {
     float: left;
     margin-left : 30px;
     padding: 0;
-    color: white;
+    color: black;
     font-size: 16px;
     transition: 0.4s;
     line-height: 40px;
     width: 500px;
   }
-.box {
-  position: absolute;
-  top: 50%;
-  left : 50%;
-  transform: translate(-50%, -50%);
-  min-height: 70vh;
-}
-.home-btn{
-  float: right;
-  margin-right: 20px;
-  margin-top: 20px;
-  color: white;
-}
+  .box {
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    margin-bottom: 100px;
+  }
+  .box img {
+    padding-left: 100px;
+  }
+  table.papertable {
+    font-family: Verdana, Geneva, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  table.papertable td, table.papertable th {
+    border: 1px solid black;
+    padding: 3px 2px;
+  }
+  table.papertable tbody td {
+    font-size: 16px;
+  }
+  table.papertable tfoot td {
+    font-size: 16px;
+  }
+  .home-btn{
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+    color: white;
+  }

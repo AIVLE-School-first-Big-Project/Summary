@@ -2,108 +2,100 @@
 <html>
   <head>
     <link rel="stylesheet" href="/static/css/book.css"> <!-- css 경로 -->
+    <script src="https://kit.fontawesome.com/b0ef0a4fe9.js" crossorigin="anonymous"></script>
+    <title>도서 검색 결과</title>
   </head>
-  <h1>
-    도서 추천
-  </h1>
-  <form action = "http://127.0.0.1:8000/search/book/"  method = "POST">
+  <div class="home-btn">
+    <a href="http://127.0.0.1:8000/">
+      <img src="/static/images/homebtn.png" width="30">
+    </a>
+    </div>
+  <div class = "box">
+    <a href="http://127.0.0.1:8000/search/booksearch/">
+      <img src="/static/images/booklogo.png" width="250">
+    </a>
+  </div>
+  <div class="search-box">
+    <form action = "http://127.0.0.1:8000/search/book/"  method = "POST">
     {% csrf_token %}
-    <input type="text" name = "search">
-    <button type = "submit">검색</button>
+    <input class="search-txt" type="text" name="search" placeholder="입력하세요">
+    <a class="search-btn">
+      <i class="fas fa-search"></i>
+    </a>
+  </div>
   </form>
 </html>
-
-  <table border="1" class="dataframe">
-      <thead>
-        <tr style="text-align: center;">
-          <th>Ranking</th>
-          <th>Image</th>
-          <th>Title</th>
-          <th>Rrice</th>
-          <th>Author</th>
-          <th>구매</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>1</th>
-          <td><img src="{{img.0}}"></td>
-          <td>{{title.0}}</td>
-          <td>{{price.0}}</td>
-          <td>{{author.0}}</td>
-          <td><a href ="{{source.0}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>2</th>
-          <td><img src="{{img.1}}"></td>
-          <td>{{title.1}}</td>
-          <td>{{price.1}}</td>
-          <td>{{author.1}}</td>
-          <td><a href ="{{source.1}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>3</th>
-          <td><img src="{{img.2}}"></td>
-          <td>{{title.2}}</td>
-          <td>{{price.2}}</td>
-          <td>{{author.2}}</td>
-          <td><a href ="{{source.2}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>4</th>
-          <td><img src="{{img.3}}"></td>
-          <td>{{title.3}}</td>
-          <td>{{price.3}}</td>
-          <td>{{author.3}}</td>
-          <td><a href ="{{source.3}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>5</th>
-          <td><img src="{{img.4}}"></td>
-          <td>{{title.4}}</td>
-          <td>{{price.4}}</td>
-          <td>{{author.4}}</td>
-          <td><a href ="{{source.4}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>6</th>
-          <td><img src="{{img.5}}"></td>
-          <td>{{title.5}}</td>
-          <td>{{price.5}}</td>
-          <td>{{author.5}}</td>
-          <td><a href ="{{source.5}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>7</th>
-          <td><img src="{{img.6}}"></td>
-          <td>{{title.6}}</td>
-          <td>{{price.6}}</td>
-          <td>{{author.6}}</td>
-          <td><a href ="{{source.6}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>8</th>
-          <td><img src="{{img.7}}"></td>
-          <td>{{title.7}}</td>
-          <td>{{price.7}}</td>
-          <td>{{author.7}}</td>
-          <td><a href ="{{source.7}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>9</th>
-          <td><img src="{{img.8}}"></td>
-          <td>{{title.8}}</td>
-          <td>{{price.8}}</td>
-          <td>{{author.8}}</td>
-          <td><a href ="{{source.8}}">구매하러가기</a></td>
-        </tr>
-        <tr>
-          <th>10</th>
-          <td><img src="{{img.9}}"></td>
-          <td>{{title.9}}</td>
-          <td>{{price.9}}</td>
-          <td>{{author.9}}</td>
-          <td><a href ="{{source.9}}">구매하러가기</a></td>
-        </tr>
-      </tbody>
-    </table>
+<table class="booktable">
+  <tbody>
+    <tr style="text-align: center;">
+      <td><img src="{{img.0}}"></td>
+      <td>{{title.0}}</td>
+      <td>{{price.0}}</td>
+      <td>{{author.0}}</td>
+      <td><a href ="{{source.0}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.1}}"></td>
+      <td>{{title.1}}</td>
+      <td>{{price.1}}</td>
+      <td>{{author.1}}</td>
+      <td><a href ="{{source.1}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.2}}"></td>
+      <td>{{title.2}}</td>
+      <td>{{price.2}}</td>
+      <td>{{author.2}}</td>
+      <td><a href ="{{source.2}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.3}}"></td>
+      <td>{{title.3}}</td>
+      <td>{{price.3}}</td>
+      <td>{{author.3}}</td>
+      <td><a href ="{{source.3}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.4}}"></td>
+      <td>{{title.4}}</td>
+      <td>{{price.4}}</td>
+      <td>{{author.4}}</td>
+      <td><a href ="{{source.4}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.5}}"></td>
+      <td>{{title.5}}</td>
+      <td>{{price.5}}</td>
+      <td>{{author.5}}</td>
+      <td><a href ="{{source.5}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.6}}"></td>
+      <td>{{title.6}}</td>
+      <td>{{price.6}}</td>
+      <td>{{author.6}}</td>
+      <td><a href ="{{source.6}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.7}}"></td>
+      <td>{{title.7}}</td>
+      <td>{{price.7}}</td>
+      <td>{{author.7}}</td>
+      <td><a href ="{{source.7}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.8}}"></td>
+      <td>{{title.8}}</td>
+      <td>{{price.8}}</td>
+      <td>{{author.8}}</td>
+      <td><a href ="{{source.8}}">구매하러가기</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <td><img src="{{img.9}}"></td>
+      <td>{{title.9}}</td>
+      <td>{{price.9}}</td>
+      <td>{{author.9}}</td>
+      <td><a href ="{{source.9}}">구매하러가기</a></td>
+    </tr>
+  </tbody>  
+</table>
