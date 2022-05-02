@@ -18,9 +18,9 @@
   <form action = "http://127.0.0.1:8000/search/documentsearch/"  method = "POST">
     {% csrf_token %}
     <input class="search-txt" type="text" name="query" placeholder="입력하세요">
-    <a class="search-btn">
-        <i class="fas fa-search"></i>
-      </a>
+    <button type = "submit" class = "search-btn">
+      <i class = "fas fa-search"></i>
+    </button>
     </div>
   </form>
 </html>
