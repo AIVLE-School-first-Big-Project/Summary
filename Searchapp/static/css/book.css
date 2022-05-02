@@ -73,3 +73,9 @@ table.booktable tbody td {
 table.booktable tfoot td {
   font-size: 16px;
 }
+.home-btn{
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  color: white;
+}
