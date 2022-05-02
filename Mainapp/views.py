@@ -99,5 +99,24 @@ def my_category(request, table):
     
     return render(request, 'Main/mypage.html', {'articles' : my_list, 'posts': posts, 'category': table})
 
-# def search(request):
-#     search_list = Board.
+def search(request):
+    user = request.user.id
+    
+    search_boards = Board.objects.filter(user_id=user).order_by('-b_date')
+    q=request.POST.get('q',"")
+    print(q)
+    
+    if q:
+        list_board=search_boards=search_boards.filter(
+            Q(b_title__icontains = q) | #제목
+            Q(b_contents__icontains = q) | #내용
+            Q(writer__icontains = q) #글쓴이
+        )
+
+        paginator=Paginator(list_board,9)
+        page=request.GET.get('page')
+        search_posts=paginator.get_page(page)
+        return render(request,'Main/mypage.html', {'articles' : list_board, 'posts' : search_posts, 'q' : q, 'category': 'article'})
+
+    else:
+        return redirect('Mainapp:my_category', table='article')
