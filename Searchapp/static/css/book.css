@@ -13,24 +13,20 @@ body {
   top: 50%;
   left : 50%;
   transform: translate(-50%, -50%);
-  background: #2f3640;
+  background: #F0F8FF;
   height: 40px;
   border-radius: 40px;
   padding: 10px;
   width: 600px;
 }
 
-.search-box:hover > .search-btn{
-background: white;
-
-}
 .search-btn{
   color: #f0b71c;
   float: right;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #2f3640;
+  background: #F0F8FF;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,6 +52,7 @@ background: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 75px;
   min-height: 65vh;
 }
 table.booktable {
@@ -64,7 +61,7 @@ table.booktable {
   margin-right: auto;
 }
 table.booktable td, table.booktable th {
-  border: 1px solid #FFFFFF;
+  border: 1px solid black;
   padding: 3px 2px;
 }
 table.booktable tbody td {
