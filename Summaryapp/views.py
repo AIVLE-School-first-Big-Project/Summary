@@ -121,7 +121,6 @@ def result2(request):
     else:
         result.append(sentence(text))
         result = "".join(result)
-    
     return render(request, 'Summary/result2.html', {'result' : result})
 
 def text(request):
