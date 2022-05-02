@@ -7,16 +7,24 @@
   <link rel="stylesheet" href="/static/css/document.css"> <!-- css 경로 -->
   <script src="https://kit.fontawesome.com/b0ef0a4fe9.js" crossorigin="anonymous"></script>
 </head>
+<div class="home-btn">
+  <a href="http://127.0.0.1:8000/">
+    <img src="/static/images/homebtn.png" width="30">
+  </a>
+  </div>
 <body>
   <!-- 검색창 -->
-  <div class = "box"><h2>Document Recommendation</h2></div>
+  <div class = "box"><a href="http://127.0.0.1:8000/search/document/">
+    <img src="/static/images/paperlogo.png" width="250">
+  </a>
+</div>
     <div class="search-box">
       <form action = "http://127.0.0.1:8000/search/documentsearch/"  method = "POST">
       {% csrf_token %}
       <input class="search-txt" type="text" name="query" placeholder="입력하세요">
-      <a class="search-btn">
-        <i class="fas fa-search"></i>
-      </a>
+      <button type = "submit" class = "search-btn">
+        <i class = "fas fa-search"></i>
+      </button></form>
     </div>
   </body>
 </html>

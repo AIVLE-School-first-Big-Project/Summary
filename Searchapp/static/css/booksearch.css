@@ -13,29 +13,25 @@ body {
     width: 70%;
     border-bottom: 3px solid #f1d39c;
   }
-.search-box{
+  .search-box{
     position: absolute;
     top: 50%;
     left : 50%;
     transform: translate(-50%, -50%);
-    background: #2f3640;
+    background: #F0F8FF;
     height: 40px;
     border-radius: 40px;
     padding: 10px;
     width: 600px;
   }
   
-  .search-box:hover > .search-btn{
-  background: white;
-  
-  }
   .search-btn{
     color: #f0b71c;
     float: right;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #2f3640;
+    background: #F0F8FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +40,7 @@ body {
   
   .search-txt{
     border:none;
+    margin-left: 100px;
     background: none;
     outline: none;
     float: left;
@@ -61,4 +58,10 @@ body {
   left : 50%;
   transform: translate(-50%, -50%);
   min-height: 70vh;
+}
+.home-btn{
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  color: white;
 }

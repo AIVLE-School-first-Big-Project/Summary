@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="/static/css/booksearch.css"> <!-- css 경로 -->
   <script src="https://kit.fontawesome.com/b0ef0a4fe9.js" crossorigin="anonymous"></script>
 </head>
+<div class="home-btn">
+<a href="http://127.0.0.1:8000/">
+  <img src="/static/images/homebtn.png" width="30">
+</a>
+</div>
 <body>
   <!-- 검색창 -->
   <div class = "box">
@@ -18,9 +23,9 @@
       <form action = "http://127.0.0.1:8000/search/book/"  method = "POST">
       {% csrf_token %}
       <input class="search-txt" type="text" name="search" placeholder="검색어를 입력하세요.">
-      <a class="search-btn">
-        <i class="fas fa-search"></i>
-      </a>
+      <button type = "submit" class = "search-btn">
+        <i class = "fas fa-search"></i>
+      </button></form>
     </div>
   </body>
 </html>
