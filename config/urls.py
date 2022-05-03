@@ -25,7 +25,6 @@ from meeting.views import audio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mysite/', include('mysite.urls')),
     
     path('', include('Mainapp.urls')),
     path('search/', include('Searchapp.urls')),
