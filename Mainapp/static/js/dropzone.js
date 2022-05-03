@@ -108,13 +108,13 @@ function preview() {
 
     // 이미지 파일 미리보기
     if (file[0].type.match('image.*')) {
-        // var reader = new FileReader();    // 파일을 읽기 위한 FileReader 객체 생성
-        // reader.onload = function(e) {     // 파일 읽어들이기를 성공했을 때 호출되는 이벤트 핸들러
-        //     str += '<img src="'+e.target.result+'" title="'+fileName+'" width=100 height=100 />';
-        //     str += '</li></div>';
-        //     previewBox.innerHTML += str;
-        // }
-        // reader.readAsDataURL(f);
+        var reader = new FileReader();    // 파일을 읽기 위한 FileReader 객체 생성
+        reader.onload = function(e) {     // 파일 읽어들이기를 성공했을 때 호출되는 이벤트 핸들러
+            str += `<img src="`+e.target.result+`" title="${fileName}" width=220 style="max-width:100%; height: auto; max-height:250px; margin-top:15px;" /></a>`;
+            str += '</li></div>';
+            previewBox.innerHTML += str;
+        }
+        reader.readAsDataURL(file[0]);
     } else {
         // str += `<a onclick="window.open(document.getElementById('img').getAttribute('src'));">`
         // str += `<a href="#" id="pdf_a">`
