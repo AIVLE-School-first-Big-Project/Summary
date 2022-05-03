@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from Mainapp.models import Board, Review
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib import messages
 
 # Create your views here.
 def main(request):
@@ -36,31 +37,28 @@ def mypage(request):
     
 def profile_update(request):
     username = request.user.first_name
+    context = {'currentname': username}
     
     if request.method == 'GET':
-        context = {'currentname': username}
         return render(request, 'Main/profile_update.html', context)
     elif request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             u = form.save(commit=False)
-            current = User.objects.get(id=request.user.id)
+            # current = User.objects.get(id=request.user.id)
             
             user = request.POST.get('first_name')
             if user:
                 u.first_name = user
             else:
-                u.first_name = current.first_name
+                messages.warning(request, '변경할 닉네임을 입력해 주세요.')
+                return render(request, 'Main/profile_update.html', context)
             
             u.save()
-            
             return redirect('Mainapp:mypage')
+            
     else:
         form = CustomUserChangeForm(instance=request.user)
-    
-    context = {
-        'form': form,
-    }
     
     return render(request, 'Main/profile_update.html')
 
@@ -100,14 +98,15 @@ def my_category(request, table):
     return render(request, 'Main/mypage.html', {'articles' : my_list, 'posts': posts, 'category': table})
 
 def search(request):
+    print('실행')
     user = request.user.id
-    
     search_boards = Board.objects.filter(user_id=user).order_by('-b_date')
-    q=request.POST.get('q',"")
-    print(q)
+    q=request.GET.get('q','')
+    print('------------------',q)
     
     if q:
-        list_board=search_boards=search_boards.filter(
+        print('if실행')
+        list_board=search_boards.filter(
             Q(b_title__icontains = q) | #제목
             Q(b_contents__icontains = q) | #내용
             Q(writer__icontains = q) #글쓴이
@@ -116,7 +115,9 @@ def search(request):
         paginator=Paginator(list_board,9)
         page=request.GET.get('page')
         search_posts=paginator.get_page(page)
-        return render(request,'Main/mypage.html', {'articles' : list_board, 'posts' : search_posts, 'q' : q, 'category': 'article'})
+        return render(request,'Main/mypage.html', {'posts' : search_posts, 'q' : q, 'category': 'article'})
 
     else:
+        print('else실행')
+        messages.warning(request, '검색할 텍스트를 입력해 주세요.')
         return redirect('Mainapp:my_category', table='article')

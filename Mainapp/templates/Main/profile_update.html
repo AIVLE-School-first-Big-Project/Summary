@@ -18,6 +18,11 @@
         {% include 'header.html' %}              
             <div id="layoutSidenav_content">
                 <main>
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     <div class="container-fluid px-4 mt-5">
                         <div class="profile_container">
                             <div class="profile_update">
@@ -45,5 +50,14 @@
 
         <script type="text/javascript" src="{% static 'js/loadingoverlay.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/loading.js' %}"></script>
+
+        <script>
+            // 2초 후 알림 끄기
+            window.setTimeout(function() {
+                $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 2000);
+        </script>
     </body>
 </html>
