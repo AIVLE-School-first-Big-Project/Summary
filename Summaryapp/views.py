@@ -10,6 +10,13 @@ from pdfminer.high_level import extract_text
 from docx import Document
 import pytesseract
 import os
+import googletrans
+from googletrans import Translator
+import json
+import torch
+import pandas as pd
+from transformers import PreTrainedTokenizerFast
+from transformers import BartForConditionalGeneration
 
 # Create your views here.
 
