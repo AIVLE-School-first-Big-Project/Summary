@@ -15,3 +15,5 @@ pip install pdfminer.six
 pip install python-docx
 pip install pytesseract
 pip install googletrans==4.0.0-rc1
+pip install PyMySQL
+pip install django-widget-tweaks
