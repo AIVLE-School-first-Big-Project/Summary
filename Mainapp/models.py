@@ -23,7 +23,7 @@ class Review(models.Model):
     r_date=models.DateTimeField(null=False,auto_now_add=True)
     r_contents=models.TextField(null=False)
     writer=models.CharField(max_length=50,null=False)
-    
+    user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column='user_id')
 
     class Meta:
         db_table='Review'

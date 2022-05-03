@@ -6,14 +6,9 @@ from datetime import date, datetime, timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 # Create your views here.
-# def board_list(request):
-#     login_session = request.session.get('login_session','')
-#     context={'login_session': login_session}
-
-#     return render(request,'Board/board_list.html',context)
-
 def board_write(request):
     login_session = request.session.get('login_session','')
     context={'login_session': login_session}
@@ -30,8 +25,7 @@ def board_write(request):
             writer=request.user.first_name
             user_id = request.user.id
             me = User.objects.get(id = user_id)
-            # print(me)
-            # board = Board.objects.create(username=me, b_title=write_form.b_title, b_contents=write_form.b_contents, writer=writer)
+            board = Board.objects.create(username=me, b_title=write_form.b_title, b_contents=write_form.b_contents, writer=writer)
             board = Board(
                 b_title=write_form.b_title,
                 b_contents=write_form.b_contents,
@@ -46,8 +40,6 @@ def board_write(request):
                 for value in write_form.errors.values():
                     context['error']=value
             return render(request, 'Board/board_write.html',context)
-
-    # return render(request,'Board/board_write.html',context)
 
 def detail_board(request,b_no):
     board_detail=Board.objects.get(b_no=b_no)
@@ -82,7 +74,6 @@ def detail_board(request,b_no):
 
 
 def board_list(request):
-    boards=Board.objects.all()
     #모든 글들을 대상으로
     tb_list=Board.objects.all().order_by('-b_date')
     #블로그 객체 9개를 한페이지로 자르기
@@ -91,7 +82,7 @@ def board_list(request):
     page=request.GET.get('page')
     #request된 페이지를 얻어온 뒤 return 
     posts= paginator.get_page(page)
-    return render(request , 'Board/board_list.html',{'boards':boards,'posts':posts})
+    return render(request , 'Board/board_list.html',{'posts':posts})
 
 
 def comment(request):
@@ -103,19 +94,26 @@ def comment(request):
             try:
                 print(r_contents)
                 writer=request.user.first_name
+                user_id = request.user.id
+                me = User.objects.get(id = user_id)
 
-                print(writer)
+                # print(writer)
                 
-                comment=Review.objects.create(b_no_id=b_no,r_contents=r_contents,writer=writer)
+                comment=Review.objects.create(
+                    b_no_id=b_no,
+                    r_contents=r_contents,
+                    writer=writer,
+                    user_id = me,
+                )
                 comment.save()
 
-                print(comment)
+                # print(comment)
 
                 board=Board.objects.get(b_no=b_no)
                 board.comment_cnt=board.comment_cnt+1
                 board.save()
 
-                print(board.comment_cnt)
+                # print(board.comment_cnt)
 
                 return redirect('Board:detail_board',b_no)
             except:
@@ -212,10 +210,9 @@ def board_delete(request,b_no):
 
 def search(request):
     search_boards=Board.objects.all().order_by('-b_date')
-    q=request.POST.get('q',"")
-    print(q)
+    q=request.GET.get('q', '')
     if q:
-        list_board=search_boards=search_boards.filter(
+        list_board=search_boards.filter(
             Q(b_title__icontains = q) | #제목
             Q(b_contents__icontains = q) | #내용
             Q(writer__icontains = q) #글쓴이
@@ -224,7 +221,8 @@ def search(request):
         paginator=Paginator(list_board,9)
         page=request.GET.get('page')
         search_posts=paginator.get_page(page)
-        return render(request,'Board/search_board.html',{'search_boards':list_board,'search_posts':search_posts,'q':q})
+        return render(request , 'Board/board_list.html',{'posts':search_posts, 'q':q})
 
     else:
-        return render(request,'Mainapp:main')
+        messages.warning(request, '검색할 텍스트를 입력해 주세요.')
+        return redirect('Board:board_list')
