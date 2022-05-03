@@ -36,17 +36,6 @@ def summary(request):
             user_id = request.user.id
             me = User.objects.get(id = user_id)
             
-            # Save File
-            # Saving the information in the database
-            file = File(
-                f_title = fileTitle,
-                uploadedFile = uploadedFile,
-                f_writer=writer,
-                user_id = me,
-            )
-            
-            file.save()
-        
             if(fileTitle.find("txt") > 0) or fileTitle.find("TXT") > 0:
                 with open(fileTitle, 'wb') as file:
                     for chunk in uploadedFile.chunks():
@@ -60,7 +49,6 @@ def summary(request):
                 
                 os.remove(fileTitle)
                 stext = text
-                return render(request, 'Summary/result.html', {'text' : text})            
                 
             elif(fileTitle.find("pdf") > 0) or fileTitle.find("PDF") > 0:
                 with open(fileTitle, 'wb') as file:
@@ -73,7 +61,6 @@ def summary(request):
                 os.remove(fileTitle)
                 stext = text
                 
-                return render(request, 'Summary/result.html', {'text' : text})
             
             elif(fileTitle.find("docx") > 0) or fileTitle.find("DOCS") > 0:
                 with open(fileTitle, 'wb') as file:
@@ -90,7 +77,6 @@ def summary(request):
                     
                 os.remove(fileTitle)
                 stext = text
-                return render(request, 'Summary/result.html', {'text' : text})        
                 
             elif(fileTitle.find("png") > 0 or fileTitle.find("PNG") or fileTitle.find("ipg") or fileTitle.find("JPG")):
                 with open(fileTitle, 'wb') as file:
@@ -103,11 +89,25 @@ def summary(request):
                     
                 os.remove(fileTitle)
                 stext = text
-                return render(request, 'Summary/result.html', {'text' : text})
                         
             else:
-                message = "파일형식이 잘못되었습니다."
-                return HttpResponse('%s' % (message) )
+                # message = "파일형식이 잘못되었습니다."
+                # return HttpResponse('%s' % (message) )
+                messages.warning(request, '파일 형식이 잘못되었습니다.')
+                return render(request, 'Summary/summary.html')
+            
+            # Save File
+            # Saving the information in the database
+            file = File(
+                f_title = fileTitle,
+                uploadedFile = uploadedFile,
+                f_writer=writer,
+                user_id = me,
+            )
+            
+            file.save()
+            
+            return render(request, 'Summary/result.html', {'text' : text})
         
         # 업로드 파일 없을 때 예외 처리
         else:
