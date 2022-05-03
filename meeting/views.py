@@ -29,7 +29,6 @@ def audio(request):
     result_json_string = res.text[res.text.index('{"type":"finalResult"'):res.text.rindex('}')+1]
     result = json.loads(result_json_string)
     print(result)
-    # meetings = Meeting.objects
+    voice = result['value']
 
-    return HttpResponse(str(result['value']))   
-
+    return render(request,'voice.html', {'voice' : voice})
