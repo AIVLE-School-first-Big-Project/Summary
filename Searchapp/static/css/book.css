@@ -65,10 +65,12 @@ table.booktable td, table.booktable th {
   padding: 3px 2px;
 }
 table.booktable tbody td {
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
 }
 table.booktable tfoot td {
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
 }
 .home-btn{
   float: right;
