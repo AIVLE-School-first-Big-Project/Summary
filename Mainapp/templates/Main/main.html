@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
     <title>Education Meeting HTML5 Template</title>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
 
     <!-- Additional CSS Files -->
@@ -101,11 +101,11 @@ https://templatemo.com/tm-569-edu-meeting
               <div class="item">
                 <a href="{% url 'meeting:meetingstart' %}">
                   <div class="icon">
-                    <img src="{% static 'images/search_icon.png' %}" alt="">
+                    <img src="{% static 'images/mike_icon.png' %}" alt="">
                   </div>
                   <div class="down-content">
                     <h4>Online Meeting</h4>
-                    <p>Suspendisse tempor mauris a sem.</p>
+                    <p>음성 요약</p>
                   </div>
                 </a>
               </div>
@@ -119,7 +119,8 @@ https://templatemo.com/tm-569-edu-meeting
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <script src="{% static 'js/isotope.min.js' %}"></script>
     <script src="{% static 'js/owl-carousel.js' %}"></script>
