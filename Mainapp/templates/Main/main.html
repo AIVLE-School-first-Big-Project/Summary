@@ -46,8 +46,9 @@ https://templatemo.com/tm-569-edu-meeting
               <!-- <a href="{% url 'Mainapp:logout' %}">Logout</a> -->
               <!-- <p>안녕하세요!</p> -->
               <a href="{% url 'Mainapp:mypage' %}">MYPAGE</a>
+              <a href="{% url 'Mainapp:logout' %}">LOGOUT</a>
               {% else %}
-              <a href="{% url 'Mainapp:login' %}?next={{ request.path }}">JOIN</a>
+              <a href="{% url 'Mainapp:login' %}?next={{ request.path }}">LOGIN</a>
               {% endif %}
             </div>
           </div>
