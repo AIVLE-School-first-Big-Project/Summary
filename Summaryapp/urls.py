@@ -8,7 +8,6 @@ app_name = 'Summaryapp'
 
 urlpatterns = [
     path('', views.summary, name='summary'),
-    path('text/', views.text, name = 'text'),
-    path('textsummary/', views.textsummary, name = 'textsummary'),
     path('result2/', views.result2, name = 'result2'),
+    path('download/', views.downloadFile, name='downloadFile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

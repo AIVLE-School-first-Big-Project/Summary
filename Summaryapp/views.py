@@ -1,4 +1,6 @@
-from django.http import HttpResponse
+from base64 import encode
+from urllib import response
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render
 from pkg_resources import set_extraction_path
 from .summary import sentence
@@ -18,14 +20,19 @@ import torch
 import pandas as pd
 from transformers import PreTrainedTokenizerFast
 from transformers import BartForConditionalGeneration
+from django.core.files.storage import FileSystemStorage
+import urllib
 
 # Create your views here.
 
 global stext
+global title
+global encode_title
 
 def summary(request):
     
     global stext
+    global title
 
     if request.method == 'POST':
         # Fetching the form data
@@ -45,10 +52,7 @@ def summary(request):
                     text = file.readlines()
             
                 text = [line.rstrip('\n') for line in text]
-                # text = text[0]
                 s = "".join(text)
-                # print(text)
-                print(s)
                 
                 os.remove(fileTitle)
                 stext = s
@@ -109,6 +113,7 @@ def summary(request):
             )
             
             file.save()
+            title = fileTitle.split('.')[0]
             
             return render(request, 'Summary/result.html', {'text' : stext})
         
@@ -119,8 +124,9 @@ def summary(request):
     return render(request, 'Summary/summary.html')
 
 def result2(request):
-    
     global stext
+    global title
+    global encode_title
     
     text = stext
     
@@ -136,16 +142,24 @@ def result2(request):
     else:
         result.append(sentence(text))
         result = "".join(result)
+    
+    encode_title = urllib.parse.quote(string=f'{title}_summary.txt')
+    
+    file = open(f'media/{encode_title}', 'w', encoding="UTF-8")
+    file.write(result)                # 파일에 문자열 저장
+    file.close()                      # 파일 객체 닫기
+    
     return render(request, 'Summary/result2.html', {'result' : result})
 
-def text(request):
-    return render(request, 'Summary/text.html')
-
-def textsummary(request):
-    text = request.POST.get('content')
+def downloadFile(request):
+    global title
+    global encode_title
     
-    sum_text = sentence(text)
+    file_path = os.path.abspath('media/')
+    file_name = encode_title
+    fs = FileSystemStorage(file_path)
+    response = FileResponse(fs.open(file_name, 'rb'),
+                            content_type='text/plain')
+    response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s' % file_name
     
-    keyword = textrank(text)
-    
-    return render(request, 'Summary/textsummary.html', {'sum_text' : sum_text, 'keyword' : keyword })
+    return response
