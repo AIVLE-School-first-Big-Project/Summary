@@ -1,4 +1,18 @@
-<h1>
-    회의전문입니다
-</h1>
-<h5>{{voice}}</h5>
+<head>
+    <link rel="stylesheet" href="/static/css/voice.css">
+    </head>
+    <div class = "top" style="background-color:#000069; color:white"><h1>회의기록</h1></div>
+    <div class="home-btn">
+      <a href="http://127.0.0.1:8000/">
+        <img src="/static/images/homebtn.png" width="30">
+      </a>
+    </div>
+    <div class="back">
+      <a href="http://127.0.0.1:8000/meeting/meetingstart/">
+        <img src="/static/images/back.png" width="40">
+      </a>
+    </div>
+    
+    <div style="border: 1px solid red; padding: 10px;" class="voice">
+      <h5>{{voice}}</h5>
+    </div>

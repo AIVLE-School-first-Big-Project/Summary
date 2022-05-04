@@ -1,0 +1,21 @@
+body {
+    background-color: #e9e4cf;
+    background-size: cover;
+}
+.top{
+  text-align: center;
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+  }
+.voice{
+  margin-top: 300px;
+  text-align: center;
+}
+.home-btn{
+  float: right;
+  margin-right: 20px;
+}
