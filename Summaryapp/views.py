@@ -45,10 +45,13 @@ def summary(request):
                     text = file.readlines()
             
                 text = [line.rstrip('\n') for line in text]
-                text = text[0]
+                # text = text[0]
+                s = "".join(text)
+                # print(text)
+                print(s)
                 
                 os.remove(fileTitle)
-                stext = text
+                stext = s
                 
             elif(fileTitle.find("pdf") > 0) or fileTitle.find("PDF") > 0:
                 with open(fileTitle, 'wb') as file:
@@ -107,7 +110,7 @@ def summary(request):
             
             file.save()
             
-            return render(request, 'Summary/result.html', {'text' : text})
+            return render(request, 'Summary/result.html', {'text' : stext})
         
         # 업로드 파일 없을 때 예외 처리
         else:

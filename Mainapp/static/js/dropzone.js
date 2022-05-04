@@ -253,10 +253,10 @@ function deleteImg() {
                             element.src = canvas.toDataURL();
                         });
                     }).catch(function() {
-                        // console.log("pdfThumbnails error: could not open page 1 of document " + filePath + ". Not a pdf ?");
+                        console.log("pdfThumbnails error: could not open page 1 of document " + filePath + ". Not a pdf ?");
                     });
                 }).catch(function() {
-                    // console.log("pdfThumbnails error: could not find or open document " + filePath + ". Not a pdf ?");
+                    console.log("pdfThumbnails error: could not find or open document " + filePath + ". Not a pdf ?");
                 });
             }
         });
