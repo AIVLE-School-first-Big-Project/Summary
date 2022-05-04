@@ -25,6 +25,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                         SUMMARY
                     </a>
+
                     <div class="sb-sidenav-menu-heading">SEARCH</div>
                     <a class="nav-link collapsed" href="{% url 'Searchapp:document' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
@@ -34,15 +35,29 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         BOOK
                     </a>
+
                     <div class="sb-sidenav-menu-heading">COMMUNITY</div>
                     <a class="nav-link" href="{% url 'Board:board_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
                         BOARD
                     </a>
-                    <a class="nav-link" href="{% url 'Mainapp:mypage' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
-                        MyPage
-                    </a>
+
+                    <div class="sb-sidenav-menu-heading">User</div>
+                    {% if user.is_authenticated %}    
+                        <a class="nav-link" href="{% url 'Mainapp:mypage' %}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
+                            MyPage
+                        </a>
+                        <a class="nav-link" href="{% url 'Mainapp:logout' %}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            LogOut
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'Mainapp:login' %}?next={{ request.path }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                            LogIn
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
