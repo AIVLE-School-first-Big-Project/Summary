@@ -11,7 +11,7 @@ class BoardWriteForm(forms.ModelForm):
         label='글 제목',
         widget=forms.TextInput(
             attrs={
-                'placeholder': '게시글 제목'
+                'placeholder': '글 제목',
             }),
     )
 

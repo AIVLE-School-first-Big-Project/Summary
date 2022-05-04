@@ -12051,7 +12051,7 @@ body {
 }
 
 #layoutSidenav_content h1 {
-  font-family: 'SFUIDisplay-Heavy';
+  font-family: 'SFUIDisplay-Heavy', 'AppleSDGothicNeoM';
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -12574,5 +12574,20 @@ mypage
   text-transform: uppercase;
   transition: all .3s;
   text-decoration: none;
+  outline: none;
+}
+
+.write_container {
+  text-align: center;
+}
+
+.write_container input {
+  background-color: #F4F4F4;
+  width: 718px;
+  height: 55px;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 0px 20px;
+  border: none;
   outline: none;
 }

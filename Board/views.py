@@ -15,7 +15,7 @@ def board_write(request):
 
     if request.method=='GET':
         write_form = BoardWriteForm()
-        context['forms']= write_form
+        context['forms'] = write_form
         return render(request,'Board/board_write.html',context)
 
     elif request.method == 'POST':
@@ -36,8 +36,7 @@ def board_write(request):
         else :
             context['forms']= write_form
             if write_form.errors:
-                for value in write_form.errors.values():
-                    context['error']=value
+                messages.warning(request, '내용을 입력해 주세요.')
             return render(request, 'Board/board_write.html',context)
 
 def detail_board(request,b_no):
