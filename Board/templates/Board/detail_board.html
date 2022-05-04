@@ -104,8 +104,8 @@
                             {{ board_detail.view }}
                           </text>
                         </li>
-    
-                        {% if user.first_name ==  board_detail.writer %}
+
+                        {% if user.username ==  board_detail.user_id|stringformat:"s" %}
                           <li class="context_li" style="margin-left: 20px;">
                             <a onclick="modify_button()" class="cursor_pointer">
                               수정
@@ -184,7 +184,7 @@
                           </div>
                         </li>
                         
-                        {% else%}
+                        {% else %}
       
                             <li class="comment">
                               <hr>
@@ -195,7 +195,7 @@
                                   </div>
                                 <p style="font-size:110%;">{{item.r_contents}}</p>
       
-                                {% if user.first_name ==  item.writer %}
+                                {% if user.username ==  item.user_id|stringformat:"s" %}
                                 <div class="atagg">
                                     <a onclick="location.href='{% url 'Board:comment_updateurl' board_detail.b_no item.r_no %}'">  수정 </a>
                                     <a onclick="location.href='{% url 'Board:comment_delete' board_detail.b_no item.r_no %}'"> 삭제 </a><br>
@@ -205,7 +205,7 @@
                               </div>
                             </li>
       
-                          {% endif%}
+                        {% endif%}
       
                         {% endfor %}
       

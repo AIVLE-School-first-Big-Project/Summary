@@ -45,15 +45,15 @@ def detail_board(request,b_no):
     comment_list=Review.objects.filter(b_no=b_no)
     comment_cnt=len(comment_list)
 
-   
-
     context={
         'board_detail' : board_detail,
         'comment_list' : comment_list,
         'comment_cnt' : comment_cnt,
 
     }
+    
     response = render(request,'Board/detail_board.html',context)
+    
     #조회수
     expire_date, now = datetime.now(),datetime.now()
     expire_date+=timedelta(days=1)

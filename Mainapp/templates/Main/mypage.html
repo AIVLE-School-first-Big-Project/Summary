@@ -90,7 +90,7 @@
                                     <tbody class ='text-dark'>
                                         {%for article in posts %}
                                         {%if article.b_title != None%}
-                                        <tr onclick="location.href = '/Board/reading/board/{{article.b_no}}'" style="cursor: pointer;">
+                                        <tr onclick="location.href = '/Board/{{article.b_no}}'" style="cursor: pointer;">
                                             <th scope='row'>{{article.b_no}}</th>
                                             <th scope='row'>{{article.b_title}}</th>
                                             <th scope='row'>{{article.writer}}</th>
