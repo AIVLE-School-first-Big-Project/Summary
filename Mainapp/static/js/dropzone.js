@@ -3,22 +3,26 @@ const inputFile = document.querySelector('#uploadedFile');
 const previewBox = document.getElementById('preview');
 const uploadBtn = document.getElementById('uploaded-btn');
 
+const word_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+const pdf_type = 'application/pdf'
+const txt_type = 'text/plain'
+
 // 박스 안에 Drag 들어왔을 때
 uploadBox.addEventListener('dragenter', function(e) {
-    console.log('dragenter');
+    // console.log('dragenter');
 });
 
 // 박스 안에 Drag 하고 있을 때
 uploadBox.addEventListener('dragover', function(e) {
     e.preventDefault();
-    console.log('dragover');
+    // console.log('dragover');
 
     this.style.backgroundColor = '#4E4E4E';
 });
 
 // 박스 밖으로 Drag 나갈 때
 uploadBox.addEventListener('dragleave', function(e) {
-    console.log('dragleave');
+    // console.log('dragleave');
 
     this.style.backgroundColor = '#F4F4F4';
 });
@@ -27,7 +31,7 @@ uploadBox.addEventListener('dragleave', function(e) {
 uploadBox.addEventListener('drop', function(e) {
     e.preventDefault();
 
-    console.log('drop');
+    // console.log('drop');
     this.style.backgroundColor = '#F4F4F4';
     
     const data = e.dataTransfer;
@@ -51,17 +55,19 @@ const handler = {
 handler.init();
 
 function checkExtension(fileName, fileSize) {
-    var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+    var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|xlsx)$");
     var maxSize = 5e+7;    // 50MB
     
     if (fileSize >= maxSize) {
     alert('50MB 이상인 파일은 업로드할 수 없습니다.');
+    deleteImg();
     inputFile.value = null;
     return false;
     }
 
     if (regex.test(fileName)) {
         alert('업로드 불가능한 파일입니다.');
+        deleteImg();
         inputFile.value = null;
         return false;
     }
@@ -73,12 +79,14 @@ function isValid(data) {
     // 파일인지 유효성 검사
     if (data.types.indexOf('Files') < 0) {
         alert('업로드 불가능한 파일입니다.');
+        deleteImg();
         return false;
     }
     
     // 파일의 사이즈는 50MB 미만
     if (data.files[0].size >= 1024 * 1024 * 50) {
         alert('50MB 이상인 파일은 업로드할 수 없습니다.');
+        deleteImg();
         return false;
     }
 
@@ -115,10 +123,22 @@ function preview() {
             previewBox.innerHTML += str;
         }
         reader.readAsDataURL(file[0]);
-    } else {
-        // str += `<a onclick="window.open(document.getElementById('img').getAttribute('src'));">`
-        // str += `<a href="#" id="pdf_a">`
-        // console.log(document.getElementById('img').getAttribute('src'));
+    }
+    
+    // word 파일
+    else if (file[0].type.match(word_type)) {
+        str += `<img src="/static/images/doc.png" title="${fileName}" width=220 style="max-width:100%; height: auto; max-height:250px; margin-top:15px;" /></a>`;
+        previewBox.innerHTML += str;
+    }
+
+    // txt 파일
+    else if (file[0].type.match(txt_type)) {
+        str += `<img src="/static/images/txt.png" title="${fileName}" width=220 style="max-width:100%; height: auto; max-height:250px; margin-top:15px;" /></a>`;
+        previewBox.innerHTML += str;
+    }
+    
+    // pdf 파일
+    else if (file[0].type.match(pdf_type)){
         str += `<img src="/static/images/pdf.png" id="img" title="${fileName}" data-pdf-thumbnail-file="/static/example.pdf" width=220 style="max-width:100%; height: auto; max-height:250px; margin-top:15px;" /></a>`;
         previewBox.innerHTML += str;
 
@@ -131,7 +151,13 @@ function preview() {
         } else {
             document.addEventListener("DOMContentLoaded", createPDFThumbnails);
         }   
-    }                       
+    }
+    
+    // 나머지 파일
+    else {
+        alert('업로드 불가능한 파일입니다.');
+        deleteImg();
+    }
 }
 
 function deleteImg() {
@@ -172,7 +198,7 @@ function deleteImg() {
     if (!loaded && typeof(pdfjsLib) === 'undefined') {
         var src = document.querySelector('script[data-pdfjs-src]').getAttribute('data-pdfjs-src');
 
-        console.log(src);
+        // console.log(src);
 
         if (!src) {
             throw Error('PDF.js URL not set in "data-pdfjs-src" attribute: cannot load PDF.js');
@@ -201,13 +227,11 @@ function deleteImg() {
             reader.readAsDataURL(inputFile.files[0]);
             reader.onloadend = function(e, filePath) {
                 var filePath = e.target.result;
-                // document.getElementById('pdf_a').href = filePath;
 
                 var imgWidth = element.getAttribute('width');
                 var imgHeight = element.getAttribute('height');
     
                 pdfjsLib.getDocument({url: filePath, worker: worker}).promise.then(function (pdf) {
-                    // alert('실행');
                     pdf.getPage(1).then(function (page) {
                         var canvas = document.createElement("canvas");
                         var viewport = page.getViewport({scale: 1.0});
@@ -229,10 +253,10 @@ function deleteImg() {
                             element.src = canvas.toDataURL();
                         });
                     }).catch(function() {
-                        console.log("pdfThumbnails error: could not open page 1 of document " + filePath + ". Not a pdf ?");
+                        // console.log("pdfThumbnails error: could not open page 1 of document " + filePath + ". Not a pdf ?");
                     });
                 }).catch(function() {
-                    console.log("pdfThumbnails error: could not find or open document " + filePath + ". Not a pdf ?");
+                    // console.log("pdfThumbnails error: could not find or open document " + filePath + ". Not a pdf ?");
                 });
             }
         });
