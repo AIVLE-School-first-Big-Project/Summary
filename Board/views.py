@@ -25,7 +25,6 @@ def board_write(request):
             writer=request.user.first_name
             user_id = request.user.id
             me = User.objects.get(id = user_id)
-            board = Board.objects.create(username=me, b_title=write_form.b_title, b_contents=write_form.b_contents, writer=writer)
             board = Board(
                 b_title=write_form.b_title,
                 b_contents=write_form.b_contents,
