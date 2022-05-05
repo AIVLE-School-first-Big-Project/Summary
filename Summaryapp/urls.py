@@ -7,7 +7,20 @@ from django.conf.urls.static import static
 app_name = 'Summaryapp'
 
 urlpatterns = [
+    # path('', views.main, name='main'),
     path('', views.summary, name='summary'),
+    # path('login/', views.login, name='login'),
+    # path('signup/', views.signup, name='signup'),
+    path('text/', views.text, name = 'text'),
+    path('textsummary/', views.textsummary, name = 'textsummary'),
+    path('ajax/', views.ajax_upload, name='ajax_upload'),
     path('result2/', views.result2, name = 'result2'),
-    path('download/', views.downloadFile, name='downloadFile'),
+    path('translate/', views.tanslate, name = 'translate'),
+    # path('uploadfile/', views.uploadFile, name = 'uploadFile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if settings.DEBUG:
+#     urlpatterns += static(
+#         settings.MEDIA_URL,
+#         document_root = settings.MEDIA_ROOT
+#     )
