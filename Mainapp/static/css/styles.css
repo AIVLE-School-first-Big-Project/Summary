@@ -2139,7 +2139,8 @@ progress {
 }
 
 .table-light {
-  --bs-table-bg: #f8f9fa;
+  /* --bs-table-bg: #f8f9fa; */
+  --bs-table-bg: #fff;
   --bs-table-striped-bg: #ecedee;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #dfe0e1;
@@ -2637,7 +2638,7 @@ textarea.form-control-lg {
         border-radius: 50%; }
     .comment-list li .comment-body {
       float: left;
-      width: calc(100% - 80px); }
+      width: calc(100% - 40px); }
       .comment-list li .comment-body h3 {
         font-size: 20px;
         color: #000; }
@@ -12040,6 +12041,7 @@ body {
   transform: translateX(-225px);
 }
 #layoutSidenav #layoutSidenav_content {
+  /* font-family: 'SFUIDisplay-Heavy', 'AppleSDGothicNeoM'; */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -12463,13 +12465,11 @@ mypage
 
 .profile_container .nickname_input {
   margin-left: 26px;
-  /* margin: 0 auto; */
   background-color: #fff;
   width: 350px;
   height: 55px;
   border-radius: 10px;
   margin-top: 20px;
-  /* margin-top: 10%; */
   padding: 0px 20px;
   border: 1px solid #F4F4F4;
   outline: none;
@@ -12510,9 +12510,7 @@ mypage
 }
 
 .upload_container {
-  /* 700, 240 */
   width: 800px;
-  /* 240 */
   height: 350px;
   margin: 0px auto;
   background-color: #F4F4F4;
@@ -12520,8 +12518,6 @@ mypage
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
   text-align: center;
-  /* padding : 100px 0; */
-  /* line-height: 100px; */
 }
 
 .btn-container {
@@ -12533,11 +12529,6 @@ mypage
 .uploaded-btn {
   width: 70px;
   height: 70px;
-  /* max-width: 100%;
-  max-height: 100%; */
-  /* vertical-align: middle; */
-  /* padding: 6px 25px; */
-  /* margin: 0 auto; */
   border-radius: 4px;
   color: white;
   cursor: pointer;
@@ -12548,7 +12539,6 @@ mypage
 }
 
 .upload_container #preview {
-  /* width: 800px; */
   height: 350px;
   -ms-user-select: none; 
   -moz-user-select: -moz-none; 
@@ -12577,6 +12567,11 @@ mypage
   outline: none;
 }
 
+/*
+---------------------------------------------
+board
+---------------------------------------------
+*/
 .write_container {
   text-align: center;
 }
@@ -12590,4 +12585,60 @@ mypage
   padding: 0px 20px;
   border: none;
   outline: none;
+}
+
+.board_container {
+  position: relative;
+  width: 80%;
+  min-height: 350px;
+  margin: 0px auto;
+  border-radius: 20px; 
+  box-shadow: 7px 14px 42px 3px rgba(163, 174, 184, 0.7); 
+}
+
+.board_container .info {
+  width: 100%;
+  height: 45px;
+  float: left;
+}
+
+.board_container .board_a {
+  color: #A9A9A9;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.comment_container {
+  width: 80%;
+  margin: 15px auto;
+}
+
+.contents {
+  height: auto;
+}
+
+.main-button-black .list-btn {
+  margin: 15px auto;
+  background-color: #959595;
+}
+
+.contents p {
+  font-size:19px;
+}
+
+.comment_count {
+  position: absolute;
+  bottom: 0;
+}
+
+.atagg {
+  text-align: right;
+}
+
+.comment_a {
+  color: #A9A9A9;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 5px;
 }
