@@ -1,10 +1,11 @@
+from django.http import FileResponse
 from django.http import HttpResponse
 from django.shortcuts import render
 from pkg_resources import set_extraction_path
 from .summary import sentence
-from .textrank import textrank
 from Mainapp.models import File
 from django.contrib.auth.models import User
+from django.contrib import messages
 import pdfminer
 from pdfminer.high_level import extract_text
 from docx import Document
@@ -17,173 +18,158 @@ import torch
 import pandas as pd
 from transformers import PreTrainedTokenizerFast
 from transformers import BartForConditionalGeneration
+from django.core.files.storage import FileSystemStorage
+import urllib
+
 
 # Create your views here.
 
 global stext
+global title
+global encode_title
+global totals
+
 
 def summary(request):
-    
+
     global stext
-    
+    global title
+
     if request.method == 'POST':
         # Fetching the form data
-        uploadedFile = request.FILES['uploadedFile']
-        fileTitle = uploadedFile.name
-        writer=request.user.first_name
-        user_id = request.user.id
-        me = User.objects.get(id = user_id)
-        
-        # Saving the information in the database
-        file = File(
-            f_title = fileTitle,
-            uploadedFile = uploadedFile,
-            f_writer=writer,
-            user_id = me,
-        )
-        
-        file.save()
-        
-        if(fileTitle.find("txt") > 0) or fileTitle.find("TXT") > 0:
-            with open(fileTitle, 'wb') as file:
-                for chunk in uploadedFile.chunks():
-                    file.write(chunk)
-                
-            with open(fileTitle, encoding = 'utf-8') as file:
-                text = file.readlines()
-        
-            text = [line.rstrip('\n') for line in text]
-            text = text[0]
-            
-            os.remove(fileTitle)
-            stext = text
-            return render(request, 'Summary/result.html', {'text' : text})            
-            
-        elif(fileTitle.find("pdf") > 0) or fileTitle.find("PDF") > 0:
-            with open(fileTitle, 'wb') as file:
-                for chunk in uploadedFile.chunks():
-                    file.write(chunk)
-                        
-            text = extract_text(fileTitle)
-            text = text.replace('\n', ' ')
-                
-            os.remove(fileTitle)
-            stext = text
-            
-            return render(request, 'Summary/result.html', {'text' : text})
-        
-        elif(fileTitle.find("docx") > 0) or fileTitle.find("DOCS") > 0:
-            with open(fileTitle, 'wb') as file:
-                for chunk in uploadedFile.chunks():
-                    file.write(chunk)
-                
-            doc = Document(fileTitle)
-            text = []
-                
-            for p in doc.paragraphs:
-                text.append(p.text)
-                
-            text = "\n".join(text)
-                
-            os.remove(fileTitle)
-            stext = text
-            return render(request, 'Summary/result.html', {'text' : text})        
-            
-        elif(fileTitle.find("png") > 0 or fileTitle.find("PNG") or fileTitle.find("ipg") or fileTitle.find("JPG")):
-            with open(fileTitle, 'wb') as file:
-                for chunk in uploadedFile.chunks():
-                    file.write(chunk)
-                
-            text = pytesseract.image_to_string(fileTitle, lang = 'kor+eng', config = '-c perserve_interword_spaces=1 --psm 4')
-            text = text.replace('\n', ' ')
-            text.strip()
-                
-            os.remove(fileTitle)
-            stext = text
-            return render(request, 'Summary/result.html', {'text' : text})
-                    
+        uploadedFile = request.FILES.get('uploadedFile')
+        if uploadedFile:
+            fileTitle = uploadedFile.name
+            writer = request.user.first_name
+            user_id = request.user.id
+            me = User.objects.get(id=user_id)
+
+            if(fileTitle.find("txt") > 0) or fileTitle.find("TXT") > 0:
+                with open(fileTitle, 'wb') as file:
+                    for chunk in uploadedFile.chunks():
+                        file.write(chunk)
+
+                with open(fileTitle, encoding='utf-8') as file:
+                    text = file.readlines()
+
+                text = [line.rstrip('\n') for line in text]
+                s = "".join(text)
+
+                os.remove(fileTitle)
+                stext = s
+
+            elif(fileTitle.find("pdf") > 0) or fileTitle.find("PDF") > 0:
+                with open(fileTitle, 'wb') as file:
+                    for chunk in uploadedFile.chunks():
+                        file.write(chunk)
+
+                text = extract_text(fileTitle)
+                text = text.replace('\n', ' ')
+
+                os.remove(fileTitle)
+                stext = text
+
+            elif(fileTitle.find("docx") > 0) or fileTitle.find("DOCS") > 0:
+                with open(fileTitle, 'wb') as file:
+                    for chunk in uploadedFile.chunks():
+                        file.write(chunk)
+
+                doc = Document(fileTitle)
+                text = []
+
+                for p in doc.paragraphs:
+                    text.append(p.text)
+
+                text = "\n".join(text)
+
+                os.remove(fileTitle)
+                stext = text
+
+            elif(fileTitle.find("png") > 0 or
+                 fileTitle.find("PNG") or
+                 fileTitle.find("ipg") or
+                 fileTitle.find("JPG")):
+                with open(fileTitle, 'wb') as file:
+                    for chunk in uploadedFile.chunks():
+                        file.write(chunk)
+
+                text = pytesseract.image_to_string(
+                    fileTitle, lang='kor+eng',
+                    config='-c perserve_interword_spaces=1 --psm 4')
+                text = text.replace('\n', ' ')
+                text.strip()
+
+                os.remove(fileTitle)
+                stext = text
+
+            else:
+                # message = "파일형식이 잘못되었습니다."
+                # return HttpResponse('%s' % (message) )
+                messages.warning(request, '파일 형식이 잘못되었습니다.')
+                return render(request, 'Summary/summary.html')
+
+            # Save File
+            # Saving the information in the database
+            file = File(
+                f_title=fileTitle,
+                uploadedFile=uploadedFile,
+                f_writer=writer,
+                user_id=me,
+            )
+
+            file.save()
+            title = fileTitle.split('.')[0]
+
+            return render(request, 'Summary/result.html', {'text': stext})
+
+        # 업로드 파일 없을 때 예외 처리
         else:
-            message = "파일형식이 잘못되었습니다."
-            return HttpResponse('%s' % (message) )
-    
-    files = File.objects.all()
-    
-    return render(request, 'Summary/summary.html', context={'files':files})
+            messages.warning(request, '파일을 업로드해 주세요.')
+
+    return render(request, 'Summary/summary.html')
+
 
 def result2(request):
-    
     global stext
-    
+    global title
+    global encode_title
+
     text = stext
-    
+
     max = 500
     result = []
     if len(text) > 500:
         for i in range(len(text) // max):
             result.append(sentence(text[i*max:(i+1)*max]))
             result.append(' ')
-        result.append(sentence(text[(i+1)*max :]))
+        result.append(sentence(text[(i+1)*max:]))
         result = "".join(result)
-        
+
     else:
         result.append(sentence(text))
         result = "".join(result)
-    return render(request, 'Summary/result2.html', {'result' : result})
 
-def text(request):
-    return render(request, 'Summary/text.html')
+    encode_title = urllib.parse.quote(string=f'{title}_summary.txt')
 
-def textsummary(request):
-    text = request.POST.get('content')
-    
-    sum_text = sentence(text)
-    
-    keyword = textrank(text)
-    
-    return render(request, 'Summary/textsummary.html', {'sum_text' : sum_text, 'keyword' : keyword })
+    file = open(f'media/{encode_title}', 'w', encoding="UTF-8")
+    file.write(result)                # 파일에 문자열 저장
+    file.close()                      # 파일 객체 닫기
 
-def uploadFile(request):
-    if request.method == 'POST':
-        # Fetching the form data
-        # fileTitle = request.POST['fileTitle']
-        uploadedFile = request.FILES['uploadedFile']
-        fileTitle = uploadedFile.name
-        writer=request.user.first_name
-        user_id = request.user.id
-        me = User.objects.get(id = user_id)
-        
-        # Save File
-        # if uploadedFile:  
-        #     with open('media/Uploaded Files/%s' % fileTitle, 'wb') as file:
-        #         for chunk in uploadedFile.chunks():
-        #             file.write(chunk)
-        
-        # Saving the information in the database
-        file = File(
-            f_title = fileTitle,
-            uploadedFile = uploadedFile,
-            f_writer=writer,
-            user_id = me,
-        )
-        
-        file.save()
-    
-    # files = File.objects.all()
-    
-    return render(request, 'Summary/summary.html')
+    return render(request, 'Summary/result2.html', {'result': result})
 
-def ajax_upload(request):
-    if request.method == 'POST':
-        # uploadedFile = request.POST.get('uploadedFile')
-        # fileTitle = request.POST.get('fileTitle')
-        # # fileTitle = uploadedFile.name
-        # writer=request.user.first_name
-        # user_id = request.user.id
-        # me = User.objects.get(id = user_id)
-        file = request.POST.get('file')
-    
-    return render(request, 'Summary/summary.html', context={'file':file})
 
+def downloadFile(request):
+    global title
+    global encode_title
+
+    file_path = os.path.abspath('media/')
+    file_name = encode_title
+    fs = FileSystemStorage(file_path)
+    response = FileResponse(fs.open(file_name, 'rb'),
+                            content_type='text/plain')
+    response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s'% file_name
+
+    return response
 ######################
 translator = Translator()
 
@@ -212,8 +198,8 @@ def slice_1(request):
             translations = translator.translate(byte_array.decode(),dest='ko')
           
             return translations.text
-    slice_text = str(slice1(slice_text))
-    return slice_text
+    result = str(slice1(slice_text))
+    return result
 
 def slice_2(text):
     global stext
@@ -235,8 +221,8 @@ def slice_2(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice2(slice_text)
-    return slice_text
+    result = slice2(slice_text)
+    return result
 
 def slice_3(text):
     global stext
@@ -257,8 +243,8 @@ def slice_3(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice3(slice_text)
-    return slice_text
+    result = slice3(slice_text)
+    return result
 
 def slice_4(text):
     global stext
@@ -280,8 +266,8 @@ def slice_4(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice4(slice_text)
-    return slice_text
+    result = slice4(slice_text)
+    return result
 
 def slice_5(text):
 
@@ -304,8 +290,8 @@ def slice_5(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice5(slice_text)
-    return slice_text
+    result = slice5(slice_text)
+    return result
 
 def slice_6(text):
 
@@ -327,8 +313,8 @@ def slice_6(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice6(slice_text)
-    return slice_text
+    result = slice6(slice_text)
+    return result
 
 def slice_7(text):
     global stext
@@ -349,8 +335,8 @@ def slice_7(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice7(slice_text)
-    return slice_text
+    result = slice7(slice_text)
+    return result
 
 def slice_8(text):
     global stext
@@ -371,8 +357,8 @@ def slice_8(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice8(slice_text)
-    return slice_text
+    result = slice8(slice_text)
+    return result
 
 def slice_9(text):
     global stext
@@ -393,8 +379,8 @@ def slice_9(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice9(slice_text)
-    return slice_text
+    result = slice9(slice_text)
+    return result
 
 def slice_10(text):
     global stext
@@ -415,8 +401,8 @@ def slice_10(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice10(slice_text)
-    return slice_text
+    result = slice10(slice_text)
+    return result
 
 def slice_11(text):
     global stext
@@ -437,8 +423,8 @@ def slice_11(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice11(slice_text)
-    return slice_text
+    result = slice11(slice_text)
+    return result
 
 
 def slice_12(text):
@@ -460,8 +446,8 @@ def slice_12(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice12(slice_text)
-    return slice_text
+    result = slice12(slice_text)
+    return result
 
 def slice_13(text):
     global stext
@@ -482,8 +468,8 @@ def slice_13(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice13(slice_text)
-    return slice_text
+    result = slice13(slice_text)
+    return result
 
 def slice_14(text):
     global stext
@@ -504,8 +490,8 @@ def slice_14(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice14(slice_text)
-    return slice_text
+    result = slice14(slice_text)
+    return result
 
 def slice_15(text):
     global stext
@@ -526,8 +512,8 @@ def slice_15(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice15(slice_text)
-    return slice_text
+    result = slice15(slice_text)
+    return result
 
 def slice_16(text):
     global stext
@@ -548,8 +534,8 @@ def slice_16(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice16(slice_text)
-    return slice_text
+    result = slice16(slice_text)
+    return result
 
 def slice_17(text):
     global stext
@@ -570,8 +556,8 @@ def slice_17(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice17(slice_text)
-    return slice_text
+    result = slice17(slice_text)
+    return result
 
 def slice_18(text):
     global stext
@@ -592,8 +578,8 @@ def slice_18(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice18(slice_text)
-    return slice_text
+    result = slice18(slice_text)
+    return result
 
 def slice_19(text):
     global stext
@@ -614,8 +600,8 @@ def slice_19(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice19(slice_text)
-    return slice_text
+    result = slice19(slice_text)
+    return result
 
 def slice_20(text):
     global stext
@@ -636,8 +622,8 @@ def slice_20(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice20(slice_text)
-    return slice_text
+    result = slice20(slice_text)
+    return result
 
 def slice_21(text):
     global stext
@@ -658,8 +644,8 @@ def slice_21(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice21(slice_text)
-    return slice_text
+    result = slice21(slice_text)
+    return result
 
 def slice_22(text):
     global stext
@@ -680,8 +666,8 @@ def slice_22(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice22(slice_text)
-    return slice_text
+    result = slice22(slice_text)
+    return result
 
 def slice_23(text):
     global stext
@@ -702,8 +688,8 @@ def slice_23(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice23(slice_text)
-    return slice_text
+    result = slice23(slice_text)
+    return result
 
 def slice_24(text):
     global stext
@@ -724,8 +710,8 @@ def slice_24(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice24(slice_text)
-    return slice_text
+    result = slice24(slice_text)
+    return result
 
 def slice_25(text):
     global stext
@@ -746,8 +732,8 @@ def slice_25(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice25(slice_text)
-    return slice_text
+    result = slice25(slice_text)
+    return result
 
 def slice_26(text):
     global stext
@@ -768,8 +754,8 @@ def slice_26(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice26(slice_text)
-    return slice_text
+    result = slice26(slice_text)
+    return result
 
 def slice_27(text):
     global stext
@@ -790,8 +776,8 @@ def slice_27(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice27(slice_text)
-    return slice_text
+    result = slice27(slice_text)
+    return result
 
 def slice_28(text):
     global stext
@@ -812,8 +798,8 @@ def slice_28(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice28(slice_text)
-    return slice_text
+    result = slice28(slice_text)
+    return result
 
 def slice_29(text):
     global stext
@@ -834,8 +820,8 @@ def slice_29(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice29(slice_text)
-    return slice_text
+    result = slice29(slice_text)
+    return result
 
 def slice_30(text):
     global stext
@@ -856,12 +842,12 @@ def slice_30(text):
                                         ])
             translations = translator.translate(byte_array.decode(), dest='ko')
             return translations.text
-    slice_text = slice30(slice_text)
-    return slice_text
+    result = slice30(slice_text)
+    return result
 
 def total(request):
     global stext
-    text=stext
+    text= stext
     
     while True:
         if len(text[0:]) <= len(text) <= len(text[:5001]):
@@ -1044,11 +1030,43 @@ def total(request):
                     slice_25(text),slice_26(text),slice_27(text),slice_28(text),slice_29(text),slice_30(text))
     
 
-def tanslate(request):
+def translate(request):
     global stext
+    global totals
     text=stext
     if request=='GET':
-        total(text)
+        totals = total(text)
+    else:
+        totals = total(text)
+           
+    return render(request,'Summary/translate.html',{'totals':totals })
 
-   
-    return render(request,'Summary/translate.html',{'totals':total(text) })
+
+
+
+
+def enkr(request):
+    global totals
+    
+    text = totals
+    max = 500
+    result = []
+    if len(text) > 500:
+        for i in range(len(text) // max):
+            result.append(sentence(text[i*max:(i+1)*max]))
+            result.append(' ')
+        result.append(sentence(text[(i+1)*max:]))
+        result = "".join(result)
+
+    else:
+        result.append(sentence(text))
+        result = "".join(result)
+
+    encode_title = urllib.parse.quote(string=f'{title}_summary.txt')
+
+    file = open(f'media/{encode_title}', 'w', encoding="UTF-8")
+    file.write(result)                # 파일에 문자열 저장
+    file.close()                      # 파일 객체 닫기
+
+    return render(request, 'Summary/result2.html', {'result': result})
+    
