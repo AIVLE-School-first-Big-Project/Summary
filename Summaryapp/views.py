@@ -170,10 +170,9 @@ def downloadFile(request):
     response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s'% file_name
 
     return response
+
 ######################
 translator = Translator()
-
-    
 
 def slice_1(request):
     global stext
