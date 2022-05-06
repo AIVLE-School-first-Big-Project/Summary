@@ -6,7 +6,7 @@ pip install bs4
 pip install selenium
 pip install konlpy
 pip install torch
-pip install transformers
+pip install transformers-4.12.3
 pip install pandas
 pip install sklearn
 pip install django-summernote
