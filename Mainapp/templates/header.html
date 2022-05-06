@@ -22,64 +22,43 @@
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Home</div>
                     <a class="nav-link" href="{% url 'Summaryapp:summary' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                         SUMMARY
                     </a>
+
                     <div class="sb-sidenav-menu-heading">SEARCH</div>
                     <a class="nav-link collapsed" href="{% url 'Searchapp:document' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                         PAPER
                     </a>
-                    {% comment %} <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                            <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                        </nav>
-                    </div> {% endcomment %}
                     <a class="nav-link collapsed" href="{% url 'Searchapp:booksearch' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         BOOK
                     </a>
-                    {% comment %} <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Authentication
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'Mainapp:login' %}">Login</a>
-                                    <a class="nav-link" href="{% url 'Mainapp:signup' %}">Register</a>
-                                    <a class="nav-link" href="password.html">Forgot Password</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Error
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="401.html">401 Page</a>
-                                    <a class="nav-link" href="404.html">404 Page</a>
-                                    <a class="nav-link" href="500.html">500 Page</a>
-                                </nav>
-                            </div>
-                        </nav>
-                    </div> {% endcomment %}
+
                     <div class="sb-sidenav-menu-heading">COMMUNITY</div>
                     <a class="nav-link" href="{% url 'Board:board_list' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
                         BOARD
                     </a>
-                    <a class="nav-link" href="{% url 'Mainapp:mypage' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        MyPage
-                    </a>
+
+                    <div class="sb-sidenav-menu-heading">User</div>
+                    {% if user.is_authenticated %}    
+                        <a class="nav-link" href="{% url 'Mainapp:mypage' %}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
+                            MyPage
+                        </a>
+                        <a class="nav-link" href="{% url 'Mainapp:logout' %}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            LogOut
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'Mainapp:login' %}?next={{ request.path }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                            LogIn
+                        </a>
+                    {% endif %}
                 </div>
-            </div>
-            <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                Start Bootstrap
             </div>
         </nav>
     </div>

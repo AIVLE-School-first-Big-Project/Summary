@@ -334,12 +334,13 @@ features
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  width: 70px;
-  height: 70px;
+  /* width: 70px; */
+  /* height: 70px; */
+  max-width: 65px;
   line-height: 90px;
   margin: auto;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   /* background: #8261ee; */
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
