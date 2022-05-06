@@ -34,13 +34,11 @@
                         </div>
                     </div>
 
-                    <div onclick="loading()">
-                        <form action="{% url 'Summaryapp:downloadFile' %}">
-                            <Button id="writing_button" style="margin-left:400px;" type="submit" class="custom-btn btn-6 px-4">
-                            다운로드
-                            </Button>
-                        </form>
-                      </div>
+                    <form action="{% url 'Summaryapp:downloadFile' %}">
+                        <div style="text-align: center;">
+                            <input type="submit" value="다운로드" class="submit-btn">
+                        </div>
+                    </form>
 
                 </main>
             </div>

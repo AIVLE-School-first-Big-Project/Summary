@@ -1033,22 +1033,19 @@ def total(request):
 def translate(request):
     global stext
     global totals
-    text=stext
-    if request=='GET':
-        totals = total(text)
-    else:
-        totals = total(text)
+    
+    text = stext    
+    totals = total(text)
            
     return render(request,'Summary/translate.html',{'totals':totals })
 
-
-
-
-
 def enkr(request):
     global totals
-    
+    global title
+    global encode_title
+
     text = totals
+
     max = 500
     result = []
     if len(text) > 500:
@@ -1068,5 +1065,4 @@ def enkr(request):
     file.write(result)                # 파일에 문자열 저장
     file.close()                      # 파일 객체 닫기
 
-    return render(request, 'Summary/result2.html', {'result': result})
-    
+    return render(request, 'Summary/result2.html', {'result': result})    

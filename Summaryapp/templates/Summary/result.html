@@ -10,8 +10,8 @@
         <title>Summary</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-        <!-- <link href="assets/css/main.css" rel="stylesheet" /> -->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/icons.css' %}" />
     </head>
     <body class="sb-nav-fixed">
         {% include 'header.html' %}              
@@ -37,7 +37,7 @@
                         <div class="row m-5 align-items-center" style = "float: none; margin:100 auto">
                           <div class="col-lg-10 mb-5 mb-lg-0" style="float: none; margin:0 auto;">
               
-                            <form action=" " method="POST" class="d-flex search-form">
+                            <!-- <form action=" " method="POST" class="d-flex search-form">
                               <span class="icon-"></span>
                               {% csrf_token %}
                               {% if user.is_authenticated %}
@@ -48,7 +48,15 @@
                                 번역
                               </Button>
                               {%endif%}
-                            </form>
+                            </form> -->
+                            <div onclick="loading()" style="text-align: center;">
+                              <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:result2" %}'">
+                                요약하기
+                              </Button>
+                              <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:translate" %}'">
+                                번역하기
+                              </Button>
+                            </div>
                             
                           </div>
                         </div>

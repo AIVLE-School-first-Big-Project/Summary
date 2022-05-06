@@ -11,5 +11,5 @@ urlpatterns = [
     path('result2/', views.result2, name='result2'),
     path('download/', views.downloadFile, name='downloadFile'),
     path('translate/', views.translate, name='translate'),
-    path('result2/',views.enkr,name='enkr'),
+    path('enkr/',views.enkr,name='enkr'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
