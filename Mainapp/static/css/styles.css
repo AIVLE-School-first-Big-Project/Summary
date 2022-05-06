@@ -12642,3 +12642,10 @@ board
   cursor: pointer;
   margin-left: 5px;
 }
+
+.comment_login {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  margin-bottom: 15px;
+}

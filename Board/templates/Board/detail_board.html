@@ -154,7 +154,7 @@
                             <textarea name="r_contents" id="message" placeholder="내용을 입력하세요." cols="30" rows="5" 
                               class="form-control"></textarea>
                           </div>
-                          <div style="text-align: center;" onclick="loading()">
+                          <div class='mb-5' style="text-align: center;" onclick="loading()">
                             <input type="submit" value="등록" class="submit-btn">
                           </div>
       
@@ -164,8 +164,8 @@
                           <div class="comment-body">
                             <hr>
                             <label for="message" style="font-size: 125%" class="mb-3">댓글</label>
-                            <div  cols="50" rows="50" class="form-control">
-                              <a href="{% url 'Mainapp:login' %}">로그인을 해주세요.</a>
+                            <div class="form-control">
+                              <a class='comment-login' href="{% url 'Mainapp:login' %}">로그인을 해주세요.</a>
                             </div>
                           </div>
                           {% endif %}
