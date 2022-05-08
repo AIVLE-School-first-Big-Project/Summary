@@ -23,7 +23,7 @@ def textrank(text):
 
     twitter = Twitter()
 
-    file_path = 'Summaryapp\word.txt'
+    file_path = 'Summaryapp\\word.txt'
 
     with open(file_path, encoding = 'UTF8') as f:
         lines = f.readlines()

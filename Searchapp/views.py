@@ -67,7 +67,7 @@ def documentsearch(request):
 
     datas = []
     
-    driver = webdriver.Chrome('Searchapp\chromedriver.exe')
+    driver = webdriver.Chrome('Searchapp\\chromedriver.exe')
     
     response = requests.get(BASE_URL)
     dom = BeautifulSoup(response.text, "html.parser")

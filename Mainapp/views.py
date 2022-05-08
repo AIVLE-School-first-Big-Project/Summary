@@ -1,4 +1,3 @@
-from genericpath import exists
 from django.shortcuts import render, redirect
 # from django.contrib.auth import authenticate
 from .forms import UserForm, CustomUserChangeForm
