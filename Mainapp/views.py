@@ -1,3 +1,4 @@
+from genericpath import exists
 from django.shortcuts import render, redirect
 # from django.contrib.auth import authenticate
 from .forms import UserForm, CustomUserChangeForm
@@ -75,24 +76,27 @@ def my_category(request, table):
     elif table == 'comment':
         # 본인이 쓴 댓글의 게시글 번호 뽑아오기
         comments_set = Review.objects.filter(user_id=user).values('b_no')
-
-        # 쿼리셋 => 리스트(딕셔너리)
-        comments = list(comments_set)
-        
-        # 각 게시글 번호를 리스트에 넣기
-        boards = []
-        for com in comments:
-            boards.append(list(com.values()))
+        if comments_set.exists():
+            # 쿼리셋 => 리스트(딕셔너리)
+            comments = list(comments_set)
             
-        # 2차원 리스트를 1차원 리스트로 변환
-        boards = sum(boards, [])
-        
-        # b_no에 맞는 조건 & 게시글 뽑기
-        q = Q()
-        for b in boards:
-            q.add(Q(b_no=b), q.OR)
-        
-        my_list = Board.objects.filter(q).order_by('-b_date')
+            # 각 게시글 번호를 리스트에 넣기
+            boards = []
+            for com in comments:
+                boards.append(list(com.values()))
+                
+            # 2차원 리스트를 1차원 리스트로 변환
+            boards = sum(boards, [])
+            
+            # b_no에 맞는 조건 & 게시글 뽑기
+            q = Q()
+            for b in boards:
+                q.add(Q(b_no=b), q.OR)
+            
+            my_list = Board.objects.filter(q).order_by('-b_date')
+            
+        else:
+            my_list = comments_set
     
     paginator = Paginator(my_list, 9)
     page = request.GET.get('page')

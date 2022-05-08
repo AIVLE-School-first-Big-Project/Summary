@@ -43,15 +43,15 @@
                             {% if category == 'article' %}
                                 <a href="{% url 'Mainapp:my_category' 'article' %}" id='article' style="color: black;">내가 쓴 글</a>
                                 <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>댓글 단 글</a>
-                                <a href="#" id="result">요약 결과본</a>
+                                <!-- <a href="#" id="result">요약 결과본</a> -->
                             {% elif category == 'comment' %}
                                 <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>내가 쓴 글</a>
                                 <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment' style="color: black;">댓글 단 글</a>
-                                <a href="#" id="result">요약 결과본</a>
+                                <!-- <a href="#" id="result">요약 결과본</a> -->
                             {% else %}
                                 <a href="{% url 'Mainapp:my_category' 'article' %}" id='article'>내가 쓴 글</a>
                                 <a href="{% url 'Mainapp:my_category' 'comment' %}" id='comment'>댓글 단 글</a>
-                                <a href="#" id="result" style="color: black;">요약 결과본</a> 
+                                <!-- <a href="#" id="result" style="color: black;">요약 결과본</a>  -->
                             {% endif %}
                             
                             <hr class="dropdown-divider" />
