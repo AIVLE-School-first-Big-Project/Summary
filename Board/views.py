@@ -1,8 +1,8 @@
-from certifi import contents
+# from certifi import contents
 from django.shortcuts import render,redirect
 from . forms import BoardWriteForm
 from Mainapp.models import Board, Review
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
@@ -114,7 +114,7 @@ def comment(request):
                 # print(board.comment_cnt)
 
                 return redirect('Board:detail_board',b_no)
-            except:
+            except Exception:
                 return redirect('Board:board_list',b_no)
         else:
             return redirect('Board:detail_board',b_no)
@@ -132,7 +132,7 @@ def comment_delete(request,b_no,r_no):
 
         return redirect('Board:detail_board',b_no)
 
-    except:
+    except Exception:
         return redirect('Board:detail_board',b_no)
 
 def comment_updateurl(request,b_no,r_no):
@@ -157,7 +157,7 @@ def comment_update(request,r_no):
 
                 del request.session['update_r_no']
                 return redirect('Board:detail_board',b_no)
-            except:
+            except Exception:
                 return redirect('Board:detail_board',b_no)
         else:
             return redirect('Board:detail_board',b_no)
@@ -202,7 +202,7 @@ def board_delete(request,b_no):
         board.delete()
         return redirect('Board:board_list')
 
-    except:
+    except Exception:
         return redirect('Board:detail_board',b_no)
 
 
@@ -211,9 +211,9 @@ def search(request):
     q=request.GET.get('q', '')
     if q:
         list_board=search_boards.filter(
-            Q(b_title__icontains = q) | #제목
-            Q(b_contents__icontains = q) | #내용
-            Q(writer__icontains = q) #글쓴이
+            Q(b_title__icontains = q) | # 제목
+            Q(b_contents__icontains = q) | # 내용
+            Q(writer__icontains = q) # 글쓴이
         )
 
         paginator=Paginator(list_board,9)

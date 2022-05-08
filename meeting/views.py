@@ -1,17 +1,15 @@
-from contextlib import redirect_stdout
-import re
-from urllib import request
-from django.shortcuts import render,redirect
-from django.views import View
-from django.http import HttpResponse, JsonResponse
+# from contextlib import redirect_stdout
+# import re
+# from urllib import request
+from django.shortcuts import render
+# from django.views import View
+# from django.http import HttpResponse, JsonResponse
 import requests
 import json
 import speech_recognition as sr
-from .models import Meeting
-
+# from .models import Meeting
 
 def meetingstart(request):
-    
     return render(request,'meetingstart.html')
 
 def audio(request):
@@ -20,7 +18,7 @@ def audio(request):
     header = {"Content-Type": "application/octet-stream", 
             "Content-Length": "chunked",
             "Authorization": "KakaoAK " + rest_api_key,
-            }
+              }
     r = sr.Recognizer()
     with sr.Microphone(sample_rate=16000) as source:
         print("기록을 시작하겠습니다!")

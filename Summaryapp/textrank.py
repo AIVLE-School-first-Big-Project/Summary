@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import normalize
 import numpy as np
-import pandas as pd
+# import pandas as pd
 
 def textrank(text):
     text = str(text)
@@ -43,7 +43,7 @@ def textrank(text):
 
     tfidf = TfidfVectorizer()
     cnt_vec = CountVectorizer()
-    graph_sentence = []
+    # graph_sentence = []
 
     def build_sent_graph(sentence):
         tfidf_mat = tfidf.fit_transform(sentence).toarray()

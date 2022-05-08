@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
-from django.http import HttpResponse
-import urllib.request as req
+# from django.http import HttpResponse
+# import urllib.request as req
 from bs4 import BeautifulSoup
 from selenium import webdriver
 

@@ -1,10 +1,10 @@
 from django import forms
-from matplotlib import widgets 
-from Mainapp.models import Board, Review
-from django_summernote.fields import SummernoteTextField
+# from matplotlib import widgets 
+from Mainapp.models import Board
+# from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
-from matplotlib.pyplot import title
-from importlib.resources import contents
+# from matplotlib.pyplot import title
+# from importlib.resources import contents
 
 class BoardWriteForm(forms.ModelForm):
     b_title = forms.CharField(
@@ -17,14 +17,16 @@ class BoardWriteForm(forms.ModelForm):
 
     b_contents = forms.CharField(widget=SummernoteWidget())
     filed_order=['b_title','b_contents']
+    
     class Meta:
-            model=Board
-            fields = [
-                'b_title','b_contents'
-            ]
-            widgets={
-                'b_contents' : SummernoteWidget()
-            }
+        model=Board
+        fields = [
+            'b_title','b_contents'
+        ]
+        widgets={
+            'b_contents' : SummernoteWidget()
+        }
+        
     def clean(self):
         cleaned_data = super().clean()
 

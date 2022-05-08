@@ -1,26 +1,25 @@
 from django.http import FileResponse
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import render
-from pkg_resources import set_extraction_path
+# from pkg_resources import set_extraction_path
 from .summary import sentence
 from Mainapp.models import File
 from django.contrib.auth.models import User
 from django.contrib import messages
-import pdfminer
+# import pdfminer
 from pdfminer.high_level import extract_text
 from docx import Document
 import pytesseract
 import os
-import googletrans
+# import googletrans
 from googletrans import Translator
-import json
-import torch
-import pandas as pd
-from transformers import PreTrainedTokenizerFast
-from transformers import BartForConditionalGeneration
+# import json
+# import torch
+# import pandas as pd
+# from transformers import PreTrainedTokenizerFast
+# from transformers import BartForConditionalGeneration
 from django.core.files.storage import FileSystemStorage
 import urllib
-
 
 # Create your views here.
 
@@ -28,7 +27,6 @@ global stext
 global title
 global encode_title
 global totals
-
 
 def summary(request):
 
@@ -187,16 +185,16 @@ def slice_1(request):
         slice_text = text[:a[0]]
 
     def slice1(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(),dest='ko')
-          
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(),dest='ko')
+        
+        return translations.text
     result = str(slice1(slice_text))
     return result
 
@@ -211,15 +209,15 @@ def slice_2(text):
         slice_text = text[5000:5000+a[0]]
 
     def slice2(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice2(slice_text)
     return result
 
@@ -233,15 +231,15 @@ def slice_3(text):
         slice_text = text[10000:10000+a[0]]
 
     def slice3(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice3(slice_text)
     return result
 
@@ -256,15 +254,15 @@ def slice_4(text):
         slice_text = text[15000:15000+a[0]]
 
     def slice4(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice4(slice_text)
     return result
 
@@ -280,15 +278,15 @@ def slice_5(text):
         slice_text = text[15000:15000+a[0]]
 
     def slice5(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice5(slice_text)
     return result
 
@@ -303,15 +301,15 @@ def slice_6(text):
         slice_text = text[25000:25000+a[0]]
 
     def slice6(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice6(slice_text)
     return result
 
@@ -325,15 +323,15 @@ def slice_7(text):
         slice_text = text[30000:30000+a[0]]
 
     def slice7(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice7(slice_text)
     return result
 
@@ -347,15 +345,15 @@ def slice_8(text):
         slice_text = text[35000:35000+a[0]]
 
     def slice8(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice8(slice_text)
     return result
 
@@ -369,15 +367,15 @@ def slice_9(text):
         slice_text = text[40000:40000+a[0]]
 
     def slice9(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice9(slice_text)
     return result
 
@@ -391,15 +389,15 @@ def slice_10(text):
         slice_text = text[45000:45000+a[0]]
 
     def slice10(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice10(slice_text)
     return result
 
@@ -413,15 +411,15 @@ def slice_11(text):
         slice_text = text[50000:50000+a[0]]
 
     def slice11(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice11(slice_text)
     return result
 
@@ -436,15 +434,15 @@ def slice_12(text):
         slice_text = text[55000:55000+a[0]]
 
     def slice12(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice12(slice_text)
     return result
 
@@ -458,15 +456,15 @@ def slice_13(text):
         slice_text = text[60000:60000+a[0]]
 
     def slice13(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice13(slice_text)
     return result
 
@@ -480,15 +478,15 @@ def slice_14(text):
         slice_text = text[65000:65000+a[0]]
 
     def slice14(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice14(slice_text)
     return result
 
@@ -502,15 +500,15 @@ def slice_15(text):
         slice_text = text[70000:70000+a[0]]
 
     def slice15(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice15(slice_text)
     return result
 
@@ -524,15 +522,15 @@ def slice_16(text):
         slice_text = text[75000:75000+a[0]]
 
     def slice16(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice16(slice_text)
     return result
 
@@ -546,15 +544,15 @@ def slice_17(text):
         slice_text = text[80000:80000+a[0]]
 
     def slice17(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice17(slice_text)
     return result
 
@@ -568,15 +566,15 @@ def slice_18(text):
         slice_text = text[85000:85000+a[0]]
 
     def slice18(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice18(slice_text)
     return result
 
@@ -590,15 +588,15 @@ def slice_19(text):
         slice_text = text[90000:90000+a[0]]
 
     def slice19(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice19(slice_text)
     return result
 
@@ -612,15 +610,15 @@ def slice_20(text):
         slice_text = text[95000:95000+a[0]]
 
     def slice20(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice20(slice_text)
     return result
 
@@ -634,15 +632,15 @@ def slice_21(text):
         slice_text = text[100000:100000+a[0]]
 
     def slice21(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice21(slice_text)
     return result
 
@@ -656,15 +654,15 @@ def slice_22(text):
         slice_text = text[105000:105000+a[0]]
 
     def slice22(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice22(slice_text)
     return result
 
@@ -678,15 +676,15 @@ def slice_23(text):
         slice_text = text[110000:110000+a[0]]
 
     def slice23(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice23(slice_text)
     return result
 
@@ -700,15 +698,15 @@ def slice_24(text):
         slice_text = text[115000:115000+a[0]]
 
     def slice24(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice24(slice_text)
     return result
 
@@ -722,15 +720,15 @@ def slice_25(text):
         slice_text = text[120000:120000+a[0]]
 
     def slice25(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice25(slice_text)
     return result
 
@@ -744,15 +742,15 @@ def slice_26(text):
         slice_text = text[125000:125000+a[0]]
 
     def slice26(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice26(slice_text)
     return result
 
@@ -766,15 +764,15 @@ def slice_27(text):
         slice_text = text[130000:130000+a[0]]
 
     def slice27(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice27(slice_text)
     return result
 
@@ -788,15 +786,15 @@ def slice_28(text):
         slice_text = text[135000:135000+a[0]]
 
     def slice28(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice28(slice_text)
     return result
 
@@ -810,15 +808,15 @@ def slice_29(text):
         slice_text = text[140000:140000+a[0]]
 
     def slice29(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice29(slice_text)
     return result
 
@@ -832,15 +830,15 @@ def slice_30(text):
         slice_text = text[145000:145000+a[0]]
 
     def slice30(slice_text):
-            slice_text = slice_text.replace('\n','')
-            encoded_string = slice_text.encode()
-            byte_array = bytearray(encoded_string)
-            translator = Translator(service_urls=[
-                                        'translate.google.com',
-                                        'translate.google.co.kr',
-                                        ])
-            translations = translator.translate(byte_array.decode(), dest='ko')
-            return translations.text
+        slice_text = slice_text.replace('\n','')
+        encoded_string = slice_text.encode()
+        byte_array = bytearray(encoded_string)
+        translator = Translator(service_urls=[
+                                    'translate.google.com',
+                                    'translate.google.co.kr',
+        ])
+        translations = translator.translate(byte_array.decode(), dest='ko')
+        return translations.text
     result = slice30(slice_text)
     return result
 
@@ -1001,7 +999,7 @@ def total(request):
                     slice_19(text),slice_20(text),slice_21(text),slice_22(text),slice_23(text),slice_24(text),slice_25(text),
                     slice_26(text),slice_27(text))
             
-        elif len(text[0:])<= len(text) <= len( text[:140001]):
+        elif len(text[0:])<= len(text) <= len(text[:140001]):
             return (slice_1(text),slice_2(text),
                     slice_3(text),slice_4(text),slice_5(text),
                     slice_6(text),slice_7(text),slice_8(text),slice_9(text),
@@ -1036,7 +1034,7 @@ def translate(request):
     text = stext    
     totals = total(text)
            
-    return render(request,'Summary/translate.html',{'totals':totals })
+    return render(request,'Summary/translate.html',{'totals':totals})
 
 def enkr(request):
     global totals

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+# from django.contrib.auth import authenticate
 from .forms import UserForm, CustomUserChangeForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from Mainapp.models import Board, Review
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -18,14 +18,17 @@ def signup(request):
         if form.is_valid():
             u = form.save(commit=False)
             # id
-            username = form.cleaned_data.get('username')
+            # username = form.cleaned_data.get('username')
+            form.cleaned_data.get('username')
             # 비밀번호
-            raw_password = form.cleaned_data.get('password1')
+            # raw_password = form.cleaned_data.get('password1')
+            form.cleaned_data.get('password1')
             # 닉네임
-            nickname = form.cleaned_data.get('first_name')
+            # nickname = form.cleaned_data.get('first_name')
+            form.cleaned_data.get('first_name')
             
             u.save()
-            user = authenticate(username=username, password=raw_password, first_name=nickname)
+            # user = authenticate(username=username, password=raw_password, first_name=nickname)
             # login(request, user)
             return redirect('Mainapp:login')
     else:
@@ -107,9 +110,9 @@ def search(request):
     if q:
         print('if실행')
         list_board=search_boards.filter(
-            Q(b_title__icontains = q) | #제목
-            Q(b_contents__icontains = q) | #내용
-            Q(writer__icontains = q) #글쓴이
+            Q(b_title__icontains = q) | # 제목
+            Q(b_contents__icontains = q) | # 내용
+            Q(writer__icontains = q) # 글쓴이
         )
 
         paginator=Paginator(list_board,9)
