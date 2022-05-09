@@ -16,3 +16,9 @@
     <div style="border: 1px solid red; padding: 10px;" class="voice">
       <h5>{{voice}}</h5>
     </div>
+
+    <form action="{% url 'meeting:downloadFile' %}">
+      <div style="text-align: center;">
+        <input type="submit" value="다운로드" class="submit-btn">
+      </div>
+    </form>
