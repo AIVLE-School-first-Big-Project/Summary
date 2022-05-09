@@ -12,27 +12,27 @@
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'css/icons.css' %}" />
-    </head>    
+    </head>
     <body class="sb-nav-fixed">
         <style>
-          .submit-btn { position: relative;
-                          margin-left : 350px;
+            .submit-btn { position: relative;
+                          margin-left : 500px;
                           top: -45px;
-                      }
-        </style>
-          {% include 'header.html' %}              
-              <div id="layoutSidenav_content">
-                  <main>
-                      <div class="container-fluid px-4">
-                          <h1 class="mt-4">TEXT</h1>
-                          <ol class="breadcrumb mb-4">
-                              <li class="breadcrumb-item active">pdf파일의 텍스트 전문입니다.<br>요약을 원하시면 요약버튼을 눌러주세요.</li>
-                              <div onclick="loading()" style="text-align: center;">
-                                <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:result2" %}'">                      
+                        }
+          </style>
+        {% include 'header.html' %}              
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Translate</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">번역본 입니다.</li>
+                            <div onclick="loading()" style="text-align: center;">
+                                <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:enkr" %}'">
                                   요약하기
                                 </Button>
-                              </div>
-                          </ol>
+                            </div>
+                        </ol>
                     </div>
                      <!-- Navbar Search-->
                     <div class="container-fluid px-4 mt-5">

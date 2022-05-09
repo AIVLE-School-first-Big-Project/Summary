@@ -133,6 +133,7 @@ def result2(request):
     global encode_title
 
     text = stext
+    text = str(text)
 
     max = 500
     result = []
@@ -1042,6 +1043,7 @@ def enkr(request):
     global encode_title
 
     text = totals
+    text = str(text)
 
     max = 500
     result = []
