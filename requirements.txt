@@ -38,6 +38,7 @@ packaging==21.3
 pdfminer.six==20220506
 Pillow==9.1.0
 pipwin==0.5.2
+# pipwin install PyAudio
 PyAudio @ file:///C:/Users/User/pipwin/PyAudio-0.2.11-cp310-cp310-win_amd64.whl
 pycodestyle==2.8.0
 pycparser==2.21
