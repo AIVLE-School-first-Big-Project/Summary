@@ -14,6 +14,12 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/icons.css' %}" />
     </head>
     <body class="sb-nav-fixed">
+      <style>
+        .submit-btn { position: relative;
+                      margin-left : 180px;
+                      top: -20px;
+                    }
+      </style>
         {% include 'header.html' %}              
             <div id="layoutSidenav_content">
                 <main>
@@ -21,6 +27,14 @@
                         <h1 class="mt-4">TEXT</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">pdf파일의 텍스트 전문입니다.<br>요약을 원하시면 요약버튼을 눌러주세요.</li>
+                            <div onclick="loading()" style="text-align: center;">
+                              <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:result2" %}'">                      
+                                요약하기
+                              </Button>
+                              <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:translate" %}'">
+                                번역하기
+                              </Button>
+                            </div>
                         </ol>
                        
                     </div>
@@ -32,22 +46,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="container">
-                        <div class="row m-5 align-items-center" style = "float: none; margin:100 auto">
-                          <div class="col-lg-10 mb-5 mb-lg-0" style="float: none; margin:0 auto;">
-                            <div onclick="loading()" style="text-align: center;">
-                              <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:result2" %}'">
-                                요약하기
-                              </Button>
-                              <Button id="writing_button" type="button" class="submit-btn" onclick="location.href='{% url "Summaryapp:translate" %}'">
-                                번역하기
-                              </Button>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
                 </main>
             </div>
         </div>

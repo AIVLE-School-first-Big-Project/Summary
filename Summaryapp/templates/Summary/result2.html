@@ -13,6 +13,12 @@
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+        <style>
+            .submit-btn { position: relative;
+                          margin-left : 500px;
+                          top: -45px;
+                        }
+          </style>
         {% include 'header.html' %}              
             <div id="layoutSidenav_content">
                 <main>
@@ -20,6 +26,12 @@
                         <h1 class="mt-4">Summary</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">요약본 입니다.</li>
+                            <div onclick="loading()" style="text-align: center;"></div>
+                            <form action="{% url 'Summaryapp:downloadFile' %}">
+                                <div style="text-align: center;">
+                                    <input type="submit" value="다운로드" class="submit-btn">
+                                </div>
+                            </form>
                         </ol>
                        
                     </div>
@@ -32,13 +44,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <form action="{% url 'Summaryapp:downloadFile' %}">
-                        <div style="text-align: center;">
-                            <input type="submit" value="다운로드" class="submit-btn">
-                        </div>
-                    </form>
-
                 </main>
             </div>
         </div>
