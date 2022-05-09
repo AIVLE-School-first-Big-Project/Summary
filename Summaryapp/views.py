@@ -1046,9 +1046,6 @@ def enkr(request):
     global encode_title
 
     text = totals
-    
-    if isinstance(text, tuple):
-        text = ''.join(text)
         
     max = 500
     result = []
