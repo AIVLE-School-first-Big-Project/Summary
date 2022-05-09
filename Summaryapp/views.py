@@ -33,8 +33,6 @@ def summary(request):
     global stext
     global title
     
-    # print(request.user.first_name)
-
     if request.method == 'POST':
         # Fetching the form data
         uploadedFile = request.FILES.get('uploadedFile')
@@ -1048,9 +1046,13 @@ def enkr(request):
     global encode_title
 
     text = totals
-
+    
+    if isinstance(text, tuple):
+        text = ''.join(text)
+        
     max = 500
     result = []
+
     if len(text) > 500:
         for i in range(len(text) // max):
             result.append(sentence(text[i*max:(i+1)*max]))
