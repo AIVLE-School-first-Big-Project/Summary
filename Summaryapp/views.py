@@ -32,13 +32,19 @@ def summary(request):
 
     global stext
     global title
+    
+    # print(request.user.first_name)
 
     if request.method == 'POST':
         # Fetching the form data
         uploadedFile = request.FILES.get('uploadedFile')
         if uploadedFile:
             fileTitle = uploadedFile.name
-            writer = request.user.first_name
+            try:
+                writer = request.user.first_name
+            except Exception:
+                messages.warning(request, '로그인 후 이용해 주세요.')
+                return render(request, 'Summary/summary.html')
             user_id = request.user.id
             me = User.objects.get(id=user_id)
 
