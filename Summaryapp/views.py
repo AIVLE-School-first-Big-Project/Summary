@@ -1,23 +1,14 @@
 from django.http import FileResponse
-# from django.http import HttpResponse
 from django.shortcuts import render
-# from pkg_resources import set_extraction_path
 from .summary import sentence
 from Mainapp.models import File
 from django.contrib.auth.models import User
 from django.contrib import messages
-# import pdfminer
 from pdfminer.high_level import extract_text
 from docx import Document
 import pytesseract
 import os
-# import googletrans
 from googletrans import Translator
-# import json
-# import torch
-# import pandas as pd
-# from transformers import PreTrainedTokenizerFast
-# from transformers import BartForConditionalGeneration
 from django.core.files.storage import FileSystemStorage
 import urllib
 

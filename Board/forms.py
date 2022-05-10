@@ -1,10 +1,6 @@
 from django import forms
-# from matplotlib import widgets 
 from Mainapp.models import Board
-# from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
-# from matplotlib.pyplot import title
-# from importlib.resources import contents
 
 class BoardWriteForm(forms.ModelForm):
     b_title = forms.CharField(

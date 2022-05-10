@@ -1,13 +1,7 @@
-# from contextlib import redirect_stdout
-# import re
-# from urllib import request
 from django.shortcuts import render
-# from django.views import View
-# from django.http import HttpResponse, JsonResponse
 import requests
 import json
 import speech_recognition as sr
-# from .models import Meeting
 import os
 from django.core.files.storage import FileSystemStorage
 from django.http import FileResponse

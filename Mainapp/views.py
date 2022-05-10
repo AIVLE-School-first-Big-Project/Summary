@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
-# from django.contrib.auth import authenticate
 from .forms import UserForm, CustomUserChangeForm
-# from django.contrib.auth.models import User
 from Mainapp.models import Board, Review
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -14,22 +12,16 @@ def main(request):
 def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
-        # print('d')
         if form.is_valid():
             u = form.save(commit=False)
             # id
-            # username = form.cleaned_data.get('username')
             form.cleaned_data.get('username')
             # 비밀번호
-            # raw_password = form.cleaned_data.get('password1')
             form.cleaned_data.get('password1')
             # 닉네임
-            # nickname = form.cleaned_data.get('first_name')
             form.cleaned_data.get('first_name')
             
             u.save()
-            # user = authenticate(username=username, password=raw_password, first_name=nickname)
-            # login(request, user)
             return redirect('Mainapp:login')
     else:
         form = UserForm()
@@ -48,7 +40,6 @@ def profile_update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             u = form.save(commit=False)
-            # current = User.objects.get(id=request.user.id)
             
             user = request.POST.get('first_name')
             if user:

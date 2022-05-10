@@ -1,4 +1,3 @@
-# from certifi import contents
 from django.shortcuts import render,redirect
 from . forms import BoardWriteForm
 from Mainapp.models import Board, Review

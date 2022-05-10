@@ -4,7 +4,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import normalize
 import numpy as np
-# import pandas as pd
 
 def textrank(text):
     text = str(text)
